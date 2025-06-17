@@ -5,6 +5,7 @@ import {
   addToWishlist,
   getWishlist,
   removeFromWishlist,
+  type WishItem,
 } from "../../utils/Wish";
 import type { Product } from "../Product/typing";
 import { useEffect, useState } from "react";
@@ -12,12 +13,11 @@ import { useEffect, useState } from "react";
 const categoryData: CategoryData = data;
 const SubCategory = () => {
   const { categoryName, subCategoryName } = useParams();
-  // const [addwish , setItemWish] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [wishlist, setWishlist] = useState<{ [key: string]: boolean }>({});
-  const [showSize, setShowSize] = useState<string | null>();
+  const [isLoggedIn , setIsLoggedIn] = useState(false)
+  const [wishListItem, setWishListItems] = useState<WishItem[]>([]);
   const navigate = useNavigate();
-  // console.log("showSize", showSize);
+
+
   const category = categoryData.categories.find(
     (cat) => cat.id === categoryName
   );
@@ -25,39 +25,26 @@ const SubCategory = () => {
     (sub) => sub.id === subCategoryName
   );
 
-
-  useEffect(() => {
-    const email = localStorage.getItem("authEmail");
-    setIsLoggedIn(!!email);
-  });
-
-  //  u
-
-  useEffect(() => {
-    const storedWish = getWishlist();
-    const wishState: { [key: string]: boolean } = {};
-    storedWish.forEach((item) => {
-      wishState[item.id] = true;
-
-    });
-    setWishlist(wishState);
-
-    console.log('wishState', wishState);
-
-  }, []);
-
   if (!category || !subCategory) return <div>Not Found</div>;
-  const handleWishList = (product: Product, selectedSize: string) => {
 
+  const handleWishList = (product: Product, selectedSize: string) => {
     addToWishlist(product, selectedSize);
-    setWishlist((prev) => ({ ...prev, [product.id]: true }));
-    setShowSize(selectedSize);
+    const wishItems = getWishlist();
+    setWishListItems(wishItems);
   };
 
-  const handleRemoveFromWishlist = (product: Product, selectedSize: string) => {
-    console.log("remove click", product.id, selectedSize);
-    removeFromWishlist(product.id, selectedSize);
-    setWishlist((prev) => ({ ...prev, [product.id]: false }));
+  useEffect(() => {
+    const email = localStorage.getItem("authEmail")
+    setIsLoggedIn(!!email)
+    const wishItems = getWishlist();
+    setWishListItems(wishItems);
+  }, []);
+
+
+  const handleRemoveItem = (id: string) => {
+    removeFromWishlist(id, "S");
+    console.log(getWishlist(), "item==>>>removeddd");
+    setWishListItems(getWishlist());
   };
   return (
     <section className="w-full ">
@@ -77,39 +64,25 @@ const SubCategory = () => {
             <div className="mx-auto grid grid-cols-1 w-fit md:grid-cols-2 lg:grid-cols-2 gap-4 sm:mx-0 ">
               {subCategory.product.map((prod) => (
                 <div className="flex" key={prod.id}>
-                  <div className="relative bg-[#ece2e2] left-10 z-30 flex size-[33.23px] cursor-pointer items-center justify-center rounded-[74.77px] p-[6.23px] md:right-2.5 md:top-2.5 md:p-[10px] hover:bg-slate-300">
-                    {isLoggedIn && wishlist[prod.id] && showSize ? (
-                      <button
-                        onClick={() => handleRemoveFromWishlist(prod, showSize)}
-                      >
-                        ♥️
-                      </button>
+                  <div className=" relative bg-[#ebe2e2]  left-10 z-30 flex size-[33.23px] cursor-pointer items-center justify-center rounded-[74.77px]  p-[2.23px] md:right-2.5 md:top-2.5 md:p-[6px] hover:bg-slate-300">
+                    {isLoggedIn && wishListItem.some((item) => item.id === prod.id) ? (
+                      <>
+                        <button onClick={() => handleRemoveItem(prod.id)}>
+                          ♥️
+                        </button>
+                      </>
                     ) : (
                       <>
+                        
                         <img
                           src="/src/assets/Images/heart_black.png"
                           alt="save"
                           className="w-6 cursor-pointer relative"
-                          onClick={() => setShowSize(prod.id)}
+                          onClick={() => handleWishList(prod, "S")}
                         />
-                        {showSize === prod.id && (
-                          <div className="absolute top-10 left-0 z-50 bg-white border rounded shadow-md">
-                            {prod.sizes &&
-                              prod?.sizes.map((s) => (
-                                <button
-                                  key={s.size}
-                                  className="block px-4 py-2 text-sm hover:bg-gray-600 w-full"
-                                  onClick={() => handleWishList(prod, s.size)}
-                                >
-                                  {s.size}
-                                </button>
-                              ))}
-                          </div>
-                        )}
                       </>
                     )}
                   </div>
-
                   <div
                     className="relative cursor-pointer w-72 sm:w-80 rounded-lg overflow-hidden shadow-lg   transition-shadow"
                     onClick={() =>

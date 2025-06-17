@@ -71,6 +71,6 @@ export const removeFromWishlist = (id: string, selectedSize: string) => {
   const wishlist = getWishlist().filter(
     (item) => !(item.id === id && item.selectedSize === selectedSize)
   );
-  console.log("wishlist", wishlist);
+  // console.log("wishlist", wishlist);
   localStorage.setItem(wishKey, JSON.stringify(wishlist));
 };

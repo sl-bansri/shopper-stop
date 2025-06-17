@@ -15,6 +15,8 @@ const WishList = () => {
   const [wishItems, setWishItems] = useState<WishItem[]>(getWishlist());
   const { setCartLength, setWishLength } = useCart();
 
+
+
   useEffect(() => {
     setWishItems(getWishlist());
   }, []);
@@ -71,13 +73,13 @@ const WishList = () => {
                   />
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p>{item.Description}</p>
-                    {/* <p>Size: {item.selectedSize}</p>
-                    <p>Price: ₹{item.sizePrice * item.quantity}</p> */}
+                    <p className="text-sm">{item.Description}</p>
+                    <p>Size: {item.selectedSize}</p>
+                    <p>Price: ₹{item.sizePrice * item.quantity}</p>
                     {/* <p>Quantity : {item.quantity}</p> */}
                     <div className="flex items-center gap-2 mt-2">
                       <button
-                        className="bg-[#000000] cursor-pointer p-1  rounded-md text-[#ffffff] w-1/2 sm:w-1/2 sm:p-2"
+                        className="bg-[#000000] cursor-pointer p-1 w-full rounded-md text-[#ffffff] sm:w-1/2 sm:p-2"
                         onClick={() => handleAddToCart(item, item.selectedSize)}
                       >
                         Add to Cart
