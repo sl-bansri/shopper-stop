@@ -1,0 +1,344 @@
+{
+  "categories": [
+    {
+      "id": "men",
+      "name": "Men",
+      "mainbanner":"/src/assets/Images/menswear_main_banner_web_cedd26d476.avif",
+      "category_slug": "men's-fashion",
+      "category_type": "product",
+      "image": "/src/assets/Images/Mens_web_3b64f0284e.avif",
+      "child_categories": [
+        {
+          "id": "formal",
+          "name": "Formal",
+          "productbanner":"/src/assets/Banner/shirtbanner.jpg",
+          "image": "/src/assets/Mens/WRSS24WSBZ4078S_NAVY.jpg_1000Wx1500H",
+          "category_slug": "Formal",
+          "product": [
+            {
+              "id": "blazer",
+              "name": "Blazer",
+              "image": "/src/assets/Mens/WRSS24WSBZ4078S_NAVY.jpg_1000Wx1500H",
+              "Price": 1200,
+              "Description": "Solid Polyester Slim Fit Men's Casual Jacket",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 1200 },
+                { "size": "L", "price": 1250 },
+                { "size": "XL", "price": 1250 }
+              ],
+              "productdetail": [
+                {
+                  "pattern":"Solid",
+                  "packof":1,
+                  "Gender":"Men",
+                  "Neckline":"Collared",
+                  "Occasion":"Casual Wear",
+                  "Fabric":"Cotton Blend",
+                  "color":"Gray"
+                }
+              ]
+            },
+            {
+              "id": "shirt",
+              "name": "Shirt",
+              "image": "/src/assets/Mens/shirtCMMA103893_GREEN.jpg_2000Wx3000H",
+              "Price": 1400,
+              "Description": "Solid Polyester Slim Fit Men's Casual Shirt",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 1400 },
+                { "size": "L", "price": 1450 },
+                { "size": "XL", "price": 1450 }
+              ],
+              "productdetail": [
+                {
+                  "pattern":"Solid",
+                  "packof":1,
+                  "Gender":"Men",
+                  "Neckline":"Collared",
+                  "Occasion":"Casual Wear",
+                  "Fabric":"Cotton Blend",
+                  "color":"Blue"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "shoes",
+          "name": "Shoes",
+          "productbanner":"/src/assets/Banner/shoesbanner.jpg",
+          "image": "/src/assets/Mens/shoes.jpg_2000Wx3000H",
+          "category_slug": "Shoes",
+          "product": [
+            {
+              "id": "sport",
+              "name": "Sport",
+              "Price": 2000,
+              "image": "/src/assets/Mens/shoes.jpg_2000Wx3000H",
+              "Description": "Exotine 3.0 Synthetic Lace Up Men's Casual Shoes",
+              "hasSize":true,
+              "sizes": [
+                { "size": "UK8", "price": 2000 },
+                { "size": "UK10", "price": 2000 },
+                { "size": "UK11", "price": 2100 }
+              ],
+              "productdetail": [
+                {
+                  "Material":"Synthetic",
+                  "pattern":"Solid",
+                  "packof":1,
+                  "Gender":"Men",
+                  "Occasion":"Casual Wear",
+                  "color":"Gray"
+                }
+              ]
+            },
+            {
+              "id": "mojdi",
+              "name": "Mojdi",
+              "Price": 800,
+              "image": "/src/assets/Mens/mojdiFSTKI9996_BROWN.jpg_2000Wx3000H",
+              "Description": "Exotine 3.0 Synthetic Lace Up Men's Casual Shoes",
+              "hasSize":true,
+              "sizes": [
+                { "size": "UK8", "price": 800 },
+                { "size": "UK10", "price": 800 },
+                { "size": "UK11", "price": 850 }
+              ],
+              "productdetail": [
+                {
+                  "Material":"Leather",
+                  "pattern":"Solid",
+                  "packof":1,
+                  "Gender":"Men",
+                  "Occasion":"Casual Wear",
+                  "color":"Brown"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "watches",
+          "name": "Watches",
+          "productbanner":"/src/assets/Banner/watchbanner.jpg",
+          "image": "/src/assets/Mens/watch.jpg_2000Wx3000H",
+          "category_slug": "Watches",
+          "product": [
+            {
+              "id": "analog",
+              "name": "Analog Watch",
+              "image": "/src/assets/Mens/watch.jpg_2000Wx3000H",
+              "Price": 1500,
+              "Description": "Kronos 2 51.6 mm Stainless steel Black Dial Analogue Wrist Watch For Men - 3319NM01",
+              "hasSize":false,
+              "productdetail": [
+                {
+                  "packof":1,
+                  "Gender":"Men",
+                  "color":"Black",
+                  "Occasion":"Casual Wear",
+                  "Type":"Analog"
+                }
+              ]
+            },
+            {
+              "id": "digital",
+              "name": "Digital Watch",
+              "image": "/src/assets/Mens/smartWTT90204AP03_NoColour.jpg_2000Wx3000H",
+              "Price": 5500,
+              "Description": "Kronos 2 51.6 mm Stainless steel Black Dial Analogue Wrist Watch For Men - 3319NM01",
+              "hasSize":false,
+              "productdetail": [
+                {
+                  "packof":1,
+                  "Gender":"Men",
+                  "color":"Multicolour",
+                  "Occasion":"Sports",
+                  "Type":"Smartwatch"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "women",
+      "name": "Women",
+      "mainbanner":"/src/assets/Images/indianwear_main_banner_web_b358d02cec.avif",
+      "category_slug": "Women's-fashion",
+      "category_type": "product",
+      "image": "/src/assets/Images/Women_web_29826640c8.avif",
+      "child_categories": [
+        {
+          "id": "kurtaset",
+          "name": "Kurta set",
+          "productbanner":"/src/assets/Banner/kurtipentbanner.jpg",
+          "image": "/src/assets/women/women-1.jpg_2000Wx3000H",
+          "category_slug": "traditional",
+          "product": [
+            {
+              "id": "kurtapent",
+              "name": "Kurta Pant",
+              "image": "/src/assets/women/women-1.jpg_2000Wx3000H",
+              "Price": 1500,
+              "Description": "Printed Regular Cotton Woven Women's Salwar Kurta Dupatta Set",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 1500 },
+                { "size": "L", "price": 1550 },
+                { "size": "XL", "price": 1550 }
+              ],
+              "productdetail": [
+                {
+                  "pattern": "solid",
+                  "packof": 1,
+                  "Gender": "women",
+                  "Neckline": "V-Neck",
+                  "Weave": "wowen",
+                  "color": "black"
+                }
+              ]
+            },
+            {
+              "id": "kurti",
+              "name": "Kurti",
+              "image": "/src/assets/women/kurtisetA24TB3510_BLUE.jpg_2000Wx3000H",
+              "Price": 500,
+              "Description": "Printed Regular Cotton Woven Women's Salwar Kurta Dupatta Set",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 500 },
+                { "size": "L", "price": 799 },
+                { "size": "XL", "price": 849 }
+              ],
+              "productdetail": [
+                {
+                  "pattern": "solid",
+                  "packof": 1,
+                  "Gender": "women",
+                  "Neckline": "V-Neck",
+                  "Weave": "wowen",
+                  "color": "black"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "jumpsuit",
+          "name": "Jumpsuit",
+          "productbanner":"/src/assets/Banner/jumpsitbanner.jpg",
+          "image": "/src/assets/women/women-3.jpg_2000Wx3000H",
+          "category_slug": "Jumpsuit",
+          "product": [
+            {
+              "id": "westernset",
+              "name": "Western set",
+              "image": "/src/assets/women/women-3.jpg_2000Wx3000H",
+              "Price": 1700,
+              "Description": "Solid Polyester Relaxed Fit Women's Jumpsuit",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 1700 },
+                { "size": "L", "price": 1799 },
+                { "size": "XL", "price": 1849 }
+              ],
+              "productdetail": [
+                {
+                  "pattern": "solid",
+                  "packof": 1,
+                  "Gender": "women",
+                  "Neckline": "V-Neck",
+                  "Weave": "wowen",
+                  "color": "orange"
+                }
+              ]
+            },
+            {
+              "id": "jumpsuitset",
+              "name": "Jumpsuit set",
+              "image": "/src/assets/women/jumpsuitMCAW22D9994268_PURPLE.jpg_2000Wx3000H",
+              "Price": 1200,
+              "Description": "Solid Polyester Relaxed Fit Women's Jumpsuit",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 1200 },
+                { "size": "L", "price": 1299 },
+                { "size": "XL", "price": 1299 }
+              ],
+              "productdetail": [
+                {
+                  "pattern": "solid",
+                  "packof": 1,
+                  "Gender": "women",
+                  "Neckline": "V-Neck",
+                  "Weave": "wowen",
+                  "color": "wine"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "coordset",
+          "name": "Co-ordSet",
+          "productbanner":"/src/assets/Banner/cordbanner.jpg",
+          "image": "/src/assets/women/women-two.png",
+          "category_slug": "co-ord set",
+          "product": [
+            {
+              "id": "ethenic",
+              "name": "Ethenic",
+              "image": "/src/assets/women/women-two.png",
+              "Price": 1500,
+              "Description": "Solid Full Length Viscose Woven Women's Co-Ord Set",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 1500 },
+                { "size": "L", "price": 1550 },
+                { "size": "XL", "price": 1550 }
+              ],
+              "productdetail": [
+                {
+                  "pattern": "solid",
+                  "packof": 1,
+                  "Gender": "women",
+                  "Neckline": "V-Neck",
+                  "Weave": "wowen",
+                  "color": "black"
+                }
+              ]
+            },
+            {
+              "id": "westerncord",
+              "name": "Western cord",
+              "image": "/src/assets/women/cordsetS25AULIPORCHID_ORCHID.jpg_2000Wx3000H",
+              "Price": 2500,
+              "Description": "Solid Full Length Viscose Woven Women's Co-Ord Set",
+              "hasSize":true,
+              "sizes": [
+                { "size": "S", "price": 2500 },
+                { "size": "L", "price": 2599 },
+                { "size": "XL", "price": 2599 }
+              ],
+              "productdetail": [
+                {
+                  "pattern": "solid",
+                  "packof": 1,
+                  "Gender": "women",
+                  "Neckline": "V-Neck",
+                  "Weave": "wowen",
+                  "color": "black"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
