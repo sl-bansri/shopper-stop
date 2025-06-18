@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { FormData } from "./typing";
-import { toast } from "react-toastify";
+
+import { showToast } from "../../../utils/useToast";
 
 const SignUp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -26,36 +27,19 @@ const SignUp = () => {
     const { name, email, password, confirmPassword } = formData;
 
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; 
-      // console.log('passwordRegex',passwordRegex);
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // console.log('passwordRegex',passwordRegex);
     if (!passwordRegex.test(password)) {
-      toast.error(
-        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
-        {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        }
-      );
+      showToast({
+        message:
+          "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
+        type: "error",
+      });
       return;
     }
 
     if (password !== confirmPassword) {
-      toast.error("Password not matched", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      showToast({ message: "Password not matched", type: "error" });
       return;
     }
 
@@ -64,15 +48,9 @@ const SignUp = () => {
     const userExists = users.find((u: any) => u.email === email);
 
     if (userExists) {
-      toast.error("User with this email already exists!", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
+      showToast({
+        message: "User with this email already exists!",
+        type: "error",
       });
       return;
     }

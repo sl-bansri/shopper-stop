@@ -1,5 +1,5 @@
-import { toast } from "react-toastify";
 import type { Product } from "../components/Product/typing";
+import { showToast } from "./useToast";
 
 export type WishItem = Product & {
   wishId: number;
@@ -26,15 +26,9 @@ export const getWishLength = (): number => {
 export const addToWishlist = (product: Product) => {
   const wishKey = getWishKeyForUser();
   if (!wishKey) {
-    toast.error("You must be logged in to add items to the favourite.", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
+    showToast({
+      message: "You must be logged in to add items to the favourite.",
+      type: "error",
     });
     return;
   }
@@ -43,9 +37,7 @@ export const addToWishlist = (product: Product) => {
   // const sizeData = product.sizes?.find((s) => s.size === selectedSize);
   // const sizePrice = sizeData ? sizeData.price : product.Price;
 
-  const existingItemIndex = wish.findIndex(
-    (item) => item.id === product.id 
-  );
+  const existingItemIndex = wish.findIndex((item) => item.id === product.id);
 
   if (existingItemIndex !== -1) {
     wish[existingItemIndex].quantity += 1;
@@ -64,9 +56,7 @@ export const removeFromWishlist = (id: string) => {
   const wishKey = getWishKeyForUser();
   if (!wishKey) return [];
 
-  const wishlist = getWishlist().filter(
-    (item) => !(item.id === id )
-  );
+  const wishlist = getWishlist().filter((item) => !(item.id === id));
   // console.log("wishlist", wishlist);
   localStorage.setItem(wishKey, JSON.stringify(wishlist));
 };

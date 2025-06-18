@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginForm } from "./typing";
 import { toast } from "react-toastify";
+import { showToast } from "../../../utils/useToast";
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginForm>({
@@ -32,16 +33,7 @@ const Login = () => {
     }
 
     // setError("");
-    toast.success("You are logged in successfully! Welcome to shopper Stop", {
-      position: "top-center",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    showToast({message:"You are logged in successfully! Welcome to shopper Stop",type:"success" });
 
     localStorage.setItem("authEmail", formData.email);
     localStorage.removeItem("isLoggedOut");

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useCart } from "../../Context/CartContext";
 import { addToWishlist, getWishLength, getWishlist, removeFromWishlist } from "../../utils/wish";
 import { addToCart, getCartLength } from "../../utils/cart";
+import { showToast } from "../../utils/useToast";
 
 const categoryData: CategoryData = data;
 
@@ -45,20 +46,13 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize && product.hasSize) {
-      toast.error("Select your size", {
-        position: "top-center",
-        autoClose: 2000,
-        theme: "dark",      
-      });
+      showToast({message:"Select your size", type :'error'});
       return;
     }
 
+
     if (!isLoggedIn) {
-      toast.error("Please login to add items to cart", {
-        position: "top-center",
-        autoClose: 2000,
-        theme: "dark",
-      });
+      showToast({message:"Please login to add items to cart", type:'error'});
       return;
     }
 
@@ -74,11 +68,7 @@ const ProductDetail = () => {
 
   const handleWishClick = () => {
     if (!isLoggedIn) {
-      toast.error("Please login to add items to the wishlist", {
-        position: "top-center",
-        autoClose: 2000,
-        theme: "dark",
-      });
+      showToast({message:"Please login to add items to cart", type:'error'});
       return;
     }
     // if (!selectedSize && product.hasSize) {
@@ -91,20 +81,12 @@ const ProductDetail = () => {
     // }
 
     if (isInWishlist) {
-      toast.info("Already in your Favourite", {
-        position: "top-center",
-        autoClose: 2000,
-        theme: "dark",
-      });
+      showToast({message:"Already in your Favourite",type: 'info'});
     } else {
       addToWishlist(product);
       setWishLength(getWishLength());
       setIsCheck(false);
-      toast.success(`${product.name} is added to Favourite!`, {
-        position: "top-center",
-        autoClose: 2000,
-        theme: "dark",
-      });
+      showToast({message:`${product.name} is added to Favourite!`, type:'success'});
       setIsInWishlist(true);
     }
   };

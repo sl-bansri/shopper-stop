@@ -13,11 +13,17 @@ import AuthRoute from "./components/Auth/ProtectedRoute";
 import ScrollToTop from "./ScrollToTop";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/Signup";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
     <Router>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        theme="dark"
+      />
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
@@ -57,7 +63,6 @@ const App = () => {
             path="/category/:categoryName/:subCategoryName/:productId"
             element={
               <>
-               
                 <AuthRoute authType="public">
                   <ProductDetail />
                 </AuthRoute>
@@ -77,7 +82,6 @@ const App = () => {
             path="/wishlist"
             element={
               <>
-           
                 <AuthRoute authType="private">
                   <WishList />
                 </AuthRoute>
@@ -85,11 +89,7 @@ const App = () => {
               </>
             }
           />
-          <>
-                {/* <Search /> */}
-              
-            
-         </>
+          <>{/* <Search /> */}</>
         </Route>
 
         <Route
@@ -112,7 +112,6 @@ const App = () => {
           <AuthRoute authType="private"><CheckOut /></AuthRoute>
         } /> */}
       </Routes>
-      
     </Router>
   );
 };

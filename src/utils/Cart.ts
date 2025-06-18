@@ -1,5 +1,5 @@
-import { toast } from "react-toastify";
 import type { Product } from "../components/Product/typing";
+import { showToast } from "./useToast";
 
 export type CartItem = Product & {
   cartId: number;
@@ -29,54 +29,38 @@ export const addToCart = (product: Product, selectedSize: string) => {
   const cartKey = getCartKeyForUser();
 
   if (!cartKey) {
-    toast.error("You must be logged in to add items to the cart.", {
-      position: "bottom-right",
-      autoClose: 2000,
-      theme: "dark",
-    });
+    showToast({ message: "Please login to add items to cart", type: "error" });
     return;
   }
 
   const cart: CartItem[] = getCart();
 
- 
-  const sizeData = product.sizes?.find((s) => s.size === selectedSize );
+  const sizeData = product.sizes?.find((s) => s.size === selectedSize);
   const sizePrice = sizeData ? sizeData.price : product.Price;
 
   const existingItemIndex = cart.findIndex(
-    (item) => item.id === product.id && item.selectedSize === selectedSize ||item.id === product.id && !item.hasSize
+    (item) =>
+      (item.id === product.id && item.selectedSize === selectedSize) ||
+      (item.id === product.id && !item.hasSize)
   );
 
-  
-  
-  if (existingItemIndex !== -1 ) {
-    cart[existingItemIndex].quantity += 1 ;
+  if (existingItemIndex !== -1) {
+    cart[existingItemIndex].quantity += 1;
 
-    if(cart[existingItemIndex].quantity >=11 ){
-      toast.error("not in stock", {
-    position: "bottom-right",
-    autoClose: 2000,
-    theme: "dark",
-  })
-  
-  cart[existingItemIndex].quantity ==10
-  return
+    if (cart[existingItemIndex].quantity >= 11) {
+      showToast({ message: "not in stock", type: "error" });
+
+      cart[existingItemIndex].quantity == 10;
+      return;
     }
-    toast.success(`${product.name} is added to Bag!`, {
-    position: "bottom-right",
-    autoClose: 2000,
-    theme: "dark",
-  });
-    
-  } 
-   
-  else {
+    showToast({ message: `${product.name} is added to bag!`, type: "success" });
+  } else {
     cart.push({
       ...product,
       cartId: Math.random(),
       selectedSize,
       sizePrice,
-      quantity: 1 ,
+      quantity: 1,
     });
   }
 
@@ -91,7 +75,11 @@ export const removeFromCart = (cartId: number) => {
   localStorage.setItem(cartKey, JSON.stringify(updatedCart));
 };
 
-export const updateQuantity = (productId: string, quantity: number, selectedSize: string) => {
+export const updateQuantity = (
+  productId: string,
+  quantity: number,
+  selectedSize: string
+) => {
   const cartKey = getCartKeyForUser();
   if (!cartKey) return;
 
