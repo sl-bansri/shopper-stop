@@ -30,7 +30,7 @@ export const addToCart = (product: Product, selectedSize: string) => {
 
   if (!cartKey) {
     toast.error("You must be logged in to add items to the cart.", {
-      position: "top-center",
+      position: "bottom-right",
       autoClose: 2000,
       theme: "dark",
     });
@@ -39,28 +39,44 @@ export const addToCart = (product: Product, selectedSize: string) => {
 
   const cart: CartItem[] = getCart();
 
-  toast.success(`${product.name} is added to Bag!`, {
-    position: "top-center",
-    autoClose: 2000,
-    theme: "dark",
-  });
-
-  const sizeData = product.sizes?.find((s) => s.size === selectedSize);
+ 
+  const sizeData = product.sizes?.find((s) => s.size === selectedSize );
   const sizePrice = sizeData ? sizeData.price : product.Price;
 
   const existingItemIndex = cart.findIndex(
-    (item) => item.id === product.id && item.selectedSize === selectedSize
+    (item) => item.id === product.id && item.selectedSize === selectedSize ||item.id === product.id && !item.hasSize
   );
 
-  if (existingItemIndex !== -1) {
-    cart[existingItemIndex].quantity += 1;
-  } else {
+  
+  
+  if (existingItemIndex !== -1 ) {
+    cart[existingItemIndex].quantity += 1 ;
+
+    if(cart[existingItemIndex].quantity >=11 ){
+      toast.error("not in stock", {
+    position: "bottom-right",
+    autoClose: 2000,
+    theme: "dark",
+  })
+  
+  cart[existingItemIndex].quantity ==10
+  return
+    }
+    toast.success(`${product.name} is added to Bag!`, {
+    position: "bottom-right",
+    autoClose: 2000,
+    theme: "dark",
+  });
+    
+  } 
+   
+  else {
     cart.push({
       ...product,
       cartId: Math.random(),
       selectedSize,
       sizePrice,
-      quantity: 1,
+      quantity: 1 ,
     });
   }
 

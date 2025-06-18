@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import type { CheckOutProps } from "./typing";
-import { getCart, getCartKeyForUser } from "../../utils/Cart";
+import { getCart, getCartKeyForUser } from "../../utils/cart";
 
 const CheckOut = ({ totalPrice }: CheckOutProps) => {
   const [formData, setFormData] = useState({
@@ -128,6 +128,7 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
                   type="tel"
                   id="phone"
                   name="phone"
+                  maxLength={10}
                   value={formData.phone}
                   onChange={handleChange}
                   required

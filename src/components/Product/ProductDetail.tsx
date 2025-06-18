@@ -3,25 +3,21 @@ import data from "../DataSet/Data.json";
 import type { CategoryData } from "../MainCategory/typing";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  addToWishlist,
-  getWishLength,
-  getWishlist,
-  removeFromWishlist,
-} from "../../utils/Wish";
-import { addToCart, getCartLength } from "../../utils/Cart";
-import { useCart } from "../../Context/CartContext";
 
+
+import { useCart } from "../../Context/CartContext";
+import { addToWishlist, getWishLength, getWishlist, removeFromWishlist } from "../../utils/wish";
+import { addToCart, getCartLength } from "../../utils/cart";
 
 const categoryData: CategoryData = data;
 
 const ProductDetail = () => {
   const { categoryName, subCategoryName, productId } = useParams();
   const [selectedSize, setSelectedSize] = useState<string>("");
-  const { setCartLength, wishLength, setWishLength } = useCart();
+  const { setCartLength, setWishLength } = useCart();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [isCheck , setIsCheck] = useState(false)
+  const [isCheck, setIsCheck] = useState(false);
 
   useEffect(() => {
     const email = localStorage.getItem("authEmail");
@@ -29,15 +25,13 @@ const ProductDetail = () => {
   }, []);
 
   useEffect(() => {
-    if (product && selectedSize) {
-      const exists = getWishlist().find(
-        (item) => item.id === product.id && item.selectedSize === selectedSize
-      );
+    if (product) {
+      const exists = getWishlist().find((item) => item.id === product.id);
       setIsInWishlist(!!exists);
     } else {
       setIsInWishlist(false);
     }
-  }, [selectedSize, wishLength]);
+  }, [getWishLength()]);
 
   const category = categoryData.categories.find(
     (cat) => cat.id === categoryName
@@ -54,7 +48,7 @@ const ProductDetail = () => {
       toast.error("Select your size", {
         position: "top-center",
         autoClose: 2000,
-        theme: "dark",
+        theme: "dark",      
       });
       return;
     }
@@ -72,7 +66,7 @@ const ProductDetail = () => {
     setCartLength(getCartLength());
 
     if (isInWishlist) {
-      removeFromWishlist(product.id, selectedSize);
+      removeFromWishlist(product.id);
       setWishLength(getWishLength());
       setIsInWishlist(true);
     }
@@ -87,14 +81,14 @@ const ProductDetail = () => {
       });
       return;
     }
-    if (!selectedSize && product.hasSize) {
-      toast.error("select your size", {
-        position: "top-center",
-        autoClose: 2000,
-        theme: "dark",
-      });
-      return;
-    }
+    // if (!selectedSize && product.hasSize) {
+    //   toast.error("select your size", {
+    //     position: "top-center",
+    //     autoClose: 2000,
+    //     theme: "dark",
+    //   });
+    //   return;
+    // }
 
     if (isInWishlist) {
       toast.info("Already in your Favourite", {
@@ -103,9 +97,9 @@ const ProductDetail = () => {
         theme: "dark",
       });
     } else {
-      addToWishlist(product, selectedSize);
+      addToWishlist(product);
       setWishLength(getWishLength());
-      setIsCheck(false)
+      setIsCheck(false);
       toast.success(`${product.name} is added to Favourite!`, {
         position: "top-center",
         autoClose: 2000,
@@ -114,11 +108,11 @@ const ProductDetail = () => {
       setIsInWishlist(true);
     }
   };
-  const onclickHeart =() => {
-    removeFromWishlist(product.id , selectedSize)
-    setIsCheck(true)
-    setIsInWishlist(false)
-  }
+  const onclickHeart = () => {
+    removeFromWishlist(product.id);
+    setIsCheck(true);
+    setIsInWishlist(false);
+  };
 
   return (
     <section className="w-full ">
@@ -127,8 +121,13 @@ const ProductDetail = () => {
           <div className="flex flex-col gap-4">
             {isInWishlist && (
               <button onClick={onclickHeart}>
-              
-                {isCheck ? <p ></p> :<p className="relative text-xl justify-right left-1 w-full top-[45px] flex  gap-1 mt-1">♥️</p>}
+                {isCheck ? (
+                  <p></p>
+                ) : (
+                  <p className="relative text-xl justify-right left-1 w-full top-[45px] flex  gap-1 mt-1">
+                    ♥️
+                  </p>
+                )}
               </button>
             )}
             <img
@@ -150,7 +149,6 @@ const ProductDetail = () => {
                 Add to Wishlist
               </button>
             </div>
-            
           </div>
 
           <div>

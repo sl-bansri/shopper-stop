@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import type { LoginForm } from "./typing";
 import { toast } from "react-toastify";
 
-
 const Login = () => {
   const [formData, setFormData] = useState<LoginForm>({
     email: "",
-    password: ""
+    password: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -20,7 +19,6 @@ const Login = () => {
 
     const user = users.find((u: any) => u.email === formData.email);
 
-  
     if (!user) {
       setError("User not found");
       setSuccess("");
@@ -34,43 +32,44 @@ const Login = () => {
     }
 
     // setError("");
-    toast.success("You are logged in successfully! Welcome to shopper Stop",{
-              position: "top-center",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-    
+    toast.success("You are logged in successfully! Welcome to shopper Stop", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
     localStorage.setItem("authEmail", formData.email);
     localStorage.removeItem("isLoggedOut");
 
-      navigate("/");
-
+    navigate("/");
   };
 
   return (
-   
-    
-      <div className="  min-h-screen bg-[black] flex">
-          <div className="container mx-auto px-4 ">
-            <div  className="max-w-md mx-auto">
-                <div className=" bg-[#f7f1f2] rounded-lg shadow-lg p-8 ">
+    <div className="  min-h-screen bg-[black] flex">
+      <div className="container mx-auto px-4 ">
+        <div className="max-w-md mx-auto">
+          <div className=" bg-[#f7f1f2] rounded-lg shadow-lg p-8 ">
             <h2 className="text-3xl font-bold text-center text-[black] mb-5">
               Login
             </h2>
 
             {success && (
-              <p className="text-[#2fdd2f] mb-4 text-xl text-center">{success}</p>
+              <p className="text-[#2fdd2f] mb-4 text-xl text-center">
+                {success}
+              </p>
             )}
 
             <form onSubmit={handleLogin} className="space-y-6">
-
               <div>
-                <label htmlFor="email" className="block text-[black] font-medium mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-[black] font-medium mb-2"
+                >
                   Email
                 </label>
                 <input
@@ -87,7 +86,10 @@ const Login = () => {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-[black] font-medium mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-[black] font-medium mb-2"
+                >
                   Password
                 </label>
                 <input
@@ -103,9 +105,11 @@ const Login = () => {
                 />
               </div>
               {error && (
-              <p className="text-[#dd2f38] mb-4 text-xl text-center">{error}</p>
-                )}
- 
+                <p className="text-[#dd2f38] mb-4 text-xl text-center">
+                  {error}
+                </p>
+              )}
+
               <button
                 type="submit"
                 disabled={!!success}
@@ -138,13 +142,15 @@ const Login = () => {
               </span>
             </div>
           </div>
-            </div>
-          </div>
-        <div>
-            <img src='/src/assets/Images/loginphoto.png' className='w-[1200px] h-full object-cover'/>
         </div>
-        </div>
-   
+      </div>
+      <div>
+        <img
+          src="/src/assets/Images/loginphoto.png"
+          className="hidden md:block  w-[1200px] h-full object-cover"
+        />
+      </div>
+    </div>
   );
 };
 

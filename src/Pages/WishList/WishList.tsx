@@ -4,91 +4,135 @@ import {
   getWishlist,
   removeFromWishlist,
   type WishItem,
-} from "../../utils/Wish";
-import type { Product } from "../../components/Product/typing";
-// import { toast } from "react-toastify";
-import { addToCart, getCartLength } from "../../utils/Cart";
+} from "../../utils/wish";
+import { addToCart, getCartLength } from "../../utils/cart";
 import { useCart } from "../../Context/CartContext";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const WishList = () => {
   const [wishItems, setWishItems] = useState<WishItem[]>(getWishlist());
   const { setCartLength, setWishLength } = useCart();
 
-
-
+  const [showSizeItemId, setShowSizeItemId] = useState<string | null>(null);
+  const [selectedSizes, setSelectedSizes] = useState<{
+    [productId: string]: string;
+  }>({});
+  // console.log('selectedSizes',selectedSizes);
   useEffect(() => {
     setWishItems(getWishlist());
   }, []);
 
-  const handleRemove = (id: string, selectedSize: string) => {
-    removeFromWishlist(id, selectedSize);
+  const handleRemove = (id: string) => {
+    removeFromWishlist(id);
     setWishLength(getWishLength());
     setWishItems(getWishlist());
   };
-  const handleAddToCart = (product: Product, selectedSize: string) => {
-    addToCart(product, selectedSize);
-    removeFromWishlist(product.id, selectedSize);
-    setWishLength(getWishLength());
-    setCartLength(getCartLength());
 
-    setWishItems(getWishlist());
+  const handleSizeClick = (productId: string) => {
+    setShowSizeItemId(productId);
+    // console.log('setActiveSizeItemId(productId)',productId);
+  };
+
+  const handleSelectSize = (productId: string, size: string) => {
+    setSelectedSizes((prev) => ({ ...prev, [productId]: size }));
+    // console.log('select', productId ,size);
+  };
+
+  const handleConfirmAddToCart = (product: WishItem) => {
+    const size = selectedSizes[product.id];
+
+    if (!size && product.hasSize) {
+      toast.error("Please select a size");
+      return;
+    }
+    //     if(!product.hasSize && product.quantity<=11 ){
+    //       toast.error("not in stock", {
+    //     position: "top-center",
+    //     autoClose: 2000,
+    //     theme: "dark",
+    //   })
+    // return;
+    //     }
+    else {
+      addToCart(product, size);
+      removeFromWishlist(product.id);
+
+      setCartLength(getCartLength());
+      setWishLength(getWishLength());
+      setWishItems(getWishlist());
+
+      setShowSizeItemId(null);
+    }
+    // console.log("showitem",showSizeItemId);
   };
 
   return (
     <section className="w-full">
-      <div className="mx-auto sm:px-6 lg:px-8 pt-4">
-        <div className="max-w-2xl  flex flex-col items-center mx-auto p-4 ">
-          <h2 className="text-2xl font-bold text-center mb-6">Your WishList</h2>
+      <div className="mx-auto  lg:px-8 pt-4">
+        <div className="max-w-2xl mx-auto p-4 flex flex-col  items-center">
+          <h2 className="text-2xl font-bold mb-6 text-center">Your Wishlist</h2>
+
           {wishItems.length === 0 ? (
-            <div className="mx-auto max-w-full ">
-              <div className="px-5 py-4 md:mx-auto md:w-[60%] md:p-1  ">
-                  <div className="text-sm md:text-base lg:text-lg text-black text-center font-medium !leading-[20px] tracking-[0.15px] xl:text-lg select-none md:select-text">
-                    You have no wish-listed items yet
-                  </div>
-                  <div className="text-xs  lg:text-base xl:text-lg font-normal mt-1 text-center tracking-xs text-neutral-500 md:!text-base md:!leading-[23px] select-none md:select-text">Mark the items you love as favourites and enjoy a seamless experience</div>
-                  <div className="mt-5 flex w-full items-end gap-0.5 px-2">
-                    <div className="flex w-[78%] justify-end rounded-t-2xl bg-neutral-100 px-2.5 pb-5 pt-2.5"><img src="/src/assets/Images/empty_wishlist.svg"/></div>
-                    <div className="w-[22%] rounded-tr-2xl bg-neutral-200 px-2.5 pb-5 pt-2.5">
-                      <img src="/src/assets/Images/heart_plus.svg" />
-                    </div>
-                  </div>
-                  <Link to={"/category"}>
-                  <button className="items-center justify-center  text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none bg-black shadow-sm text-white px-4 py-2 font-medium rounded-sm gap-0   mx-auto mt-6 flex h-10 w-3/5 md:mt-8 lg:mt-10">
-                  <p className="text-xs uppercase  tracking-sm md:text-sm font-medium !leading-4">WISHLIST ITEMS</p></button>
-                  </Link>
-              </div>
+            <div className="text-center text-neutral-500">
+              Your wishlist is empty.
             </div>
           ) : (
             <div className="space-y-6 w-full">
               {wishItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex w-full gap-4 items-center border p-4 rounded-md shadow"
+                  className="flex flex-row sm:flex-row items-center sm:items-center gap-4 border p-4 rounded-md shadow"
                 >
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-24  bg-cover"
+                    className="w-24 bg-cover rounded-md"
                   />
+
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p className="text-sm">{item.Description}</p>
-                    <p>Size: {item.selectedSize}</p>
-                    <p>Price: ₹{item.sizePrice * item.quantity}</p>
-                    {/* <p>Quantity : {item.quantity}</p> */}
-                    <div className="flex items-center gap-2 mt-2">
+                    <p className="text-sm text-gray-600">{item.Description}</p>
+
+                    {showSizeItemId === item.id ? (
+                      <>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {item.sizes &&
+                            item.sizes?.map((size) => (
+                              <button
+                                key={size.size}
+                                onClick={() =>
+                                  handleSelectSize(item.id, size.size)
+                                }
+                                className={`px-3 py-1 border hover:bg-slate-700  text-sm ${
+                                  selectedSizes[item.id] === size.size
+                                    ? "border-black font-semibold"
+                                    : "border-gray-400"
+                                }`}
+                              >
+                                {size.size}
+                              </button>
+                            ))}
+                        </div>
+                        <button
+                          className="mt-3 bg-black text-white px-4 py-2 rounded text-sm"
+                          onClick={() => handleConfirmAddToCart(item)}
+                        >
+                          Confirm Add to Cart
+                        </button>
+                      </>
+                    ) : (
                       <button
-                        className="bg-[#000000] cursor-pointer p-1 w-full rounded-md text-[#ffffff] sm:w-1/2 sm:p-2"
-                        onClick={() => handleAddToCart(item, item.selectedSize)}
+                        onClick={() => handleSizeClick(item.id)}
+                        className="mt-3 bg-black text-white px-4 py-2 rounded text-sm"
                       >
                         Add to Cart
                       </button>
-                    </div>
+                    )}
                   </div>
+
                   <button
-                    onClick={() => handleRemove(item.id, item.selectedSize)}
-                    className="text-[red] font-bold text-xl"
+                    onClick={() => handleRemove(item.id)}
+                    className="text-red-600 font-bold text-xl ml-auto "
                   >
                     x
                   </button>
