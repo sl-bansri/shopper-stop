@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginForm } from "./typing";
-import { toast } from "react-toastify";
-import { showToast } from "../../../utils/useToast";
+import {  toastNotification } from "../../../utils/toastNotification";
+import { useAuth } from "../../../Context/AuthContext/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginForm>({
@@ -11,6 +11,7 @@ const Login = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
@@ -32,11 +33,15 @@ const Login = () => {
       return;
     }
 
-    // setError("");
-    showToast({message:"You are logged in successfully! Welcome to shopper Stop",type:"success" });
+   
+    toastNotification({
+      message: "You are logged in successfully! Welcome to shopper Stop",
+      type: "success",
+    });
 
     localStorage.setItem("authEmail", formData.email);
     localStorage.removeItem("isLoggedOut");
+    setIsLoggedIn(true);
 
     navigate("/");
   };

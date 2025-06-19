@@ -2,13 +2,18 @@ import { useParams } from "react-router-dom";
 import data from "../DataSet/Data.json";
 import type { CategoryData } from "../MainCategory/typing";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-
 
 import { useCart } from "../../Context/CartContext";
-import { addToWishlist, getWishLength, getWishlist, removeFromWishlist } from "../../utils/wish";
+import {
+  addToWishlist,
+  getWishLength,
+  getWishlist,
+  removeFromWishlist,
+} from "../../utils/wish";
 import { addToCart, getCartLength } from "../../utils/cart";
-import { showToast } from "../../utils/useToast";
+import { toastNotification } from "../../utils/toastNotification";
+import { useAuth } from "../../Context/AuthContext/AuthContext";
+import Button from "../Button/Button";
 
 const categoryData: CategoryData = data;
 
@@ -16,14 +21,10 @@ const ProductDetail = () => {
   const { categoryName, subCategoryName, productId } = useParams();
   const [selectedSize, setSelectedSize] = useState<string>("");
   const { setCartLength, setWishLength } = useCart();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useAuth();
+
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
-
-  useEffect(() => {
-    const email = localStorage.getItem("authEmail");
-    setIsLoggedIn(!!email);
-  }, []);
 
   useEffect(() => {
     if (product) {
@@ -46,13 +47,15 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize && product.hasSize) {
-      showToast({message:"Select your size", type :'error'});
+      toastNotification({ message: "Select your size", type: "error" });
       return;
     }
 
-
     if (!isLoggedIn) {
-      showToast({message:"Please login to add items to cart", type:'error'});
+      toastNotification({
+        message: "Please login to add items to cart",
+        type: "error",
+      });
       return;
     }
 
@@ -68,25 +71,24 @@ const ProductDetail = () => {
 
   const handleWishClick = () => {
     if (!isLoggedIn) {
-      showToast({message:"Please login to add items to cart", type:'error'});
+      toastNotification({
+        message: "Please login to add items to cart",
+        type: "error",
+      });
       return;
     }
-    // if (!selectedSize && product.hasSize) {
-    //   toast.error("select your size", {
-    //     position: "top-center",
-    //     autoClose: 2000,
-    //     theme: "dark",
-    //   });
-    //   return;
-    // }
+    
 
     if (isInWishlist) {
-      showToast({message:"Already in your Favourite",type: 'info'});
+      toastNotification({ message: "Already in your Favourite", type: "info" });
     } else {
       addToWishlist(product);
       setWishLength(getWishLength());
       setIsCheck(false);
-      showToast({message:`${product.name} is added to Favourite!`, type:'success'});
+      toastNotification({
+        message: `${product.name} is added to Favourite!`,
+        type: "success",
+      });
       setIsInWishlist(true);
     }
   };
@@ -118,18 +120,18 @@ const ProductDetail = () => {
               className=" w-full h-[26rem] bg-cover"
             />
             <div className="flex flex-col gap-2  sm:flex-row ">
-              <button
-                className="bg-[#000000] cursor-pointer p-2 rounded-md text-[#ffffff] w-full sm:w-1/2"
+              <Button variant="secondary" size="medium"
+                // className="bg-[#000000] cursor-pointer p-2 rounded-md text-[#ffffff] w-full sm:w-1/2"
                 onClick={handleAddToCart}
               >
                 Add to Bag
-              </button>
-              <button
+              </Button>
+              <Button variant="outline" size="medium"
                 onClick={handleWishClick}
-                className="border-2 cursor-pointer border-black rounded-md w-full sm:w-1/2"
+                // className="border-2 cursor-pointer border-black rounded-md w-full sm:w-1/2"
               >
                 Add to Wishlist
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -152,15 +154,16 @@ const ProductDetail = () => {
                   <div className="flex space-x-3">
                     {product.sizes &&
                       product?.sizes.map((s) => (
-                        <button
+                        <Button
+                          variant="primary" size="small"
                           key={s.size}
-                          className={`bg-[#e2e0e0a2] hover:bg-gray-400 inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none shadow font-medium disabled:bg-neutral-300 disabled:opacity-100 relative h-9 min-w-[46px] cursor-pointer gap-2 overflow-hidden rounded-[2px] bg-whiteShade px-4 py-3 text-center text-sm !leading-[14px] text-black ${
+                          className={` ${
                             selectedSize === s.size ? "border border-black" : ""
                           }`}
                           onClick={() => setSelectedSize(s.size)}
                         >
                           {s.size}
-                        </button>
+                        </Button>
                       ))}
                   </div>
                 </div>

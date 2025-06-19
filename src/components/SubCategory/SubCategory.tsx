@@ -9,11 +9,12 @@ import {
 } from "../../utils/wish";
 import type { Product } from "../Product/typing";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../Context/AuthContext/AuthContext";
 
 const categoryData: CategoryData = data;
 const SubCategory = () => {
   const { categoryName, subCategoryName } = useParams();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {isLoggedIn} = useAuth()
   const [wishListItem, setWishListItems] = useState<WishItem[]>([]);
   const navigate = useNavigate();
 
@@ -33,8 +34,6 @@ const SubCategory = () => {
   };
 
   useEffect(() => {
-    const email = localStorage.getItem("authEmail");
-    setIsLoggedIn(!!email);
     const wishItems = getWishlist();
     setWishListItems(wishItems);
   }, []);

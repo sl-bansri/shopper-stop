@@ -1,5 +1,5 @@
 import type { Product } from "../components/Product/typing";
-import { showToast } from "./useToast";
+import {  toastNotification } from "./toastNotification";
 
 export type CartItem = Product & {
   cartId: number;
@@ -29,7 +29,7 @@ export const addToCart = (product: Product, selectedSize: string) => {
   const cartKey = getCartKeyForUser();
 
   if (!cartKey) {
-    showToast({ message: "Please login to add items to cart", type: "error" });
+    toastNotification({ message: "Please login to add items to cart", type: "error" });
     return;
   }
 
@@ -48,12 +48,12 @@ export const addToCart = (product: Product, selectedSize: string) => {
     cart[existingItemIndex].quantity += 1;
 
     if (cart[existingItemIndex].quantity >= 11) {
-      showToast({ message: "not in stock", type: "error" });
+      toastNotification({ message: "not in stock", type: "error" });
 
       cart[existingItemIndex].quantity == 10;
       return;
     }
-    showToast({ message: `${product.name} is added to bag!`, type: "success" });
+    toastNotification({ message: `${product.name} is added to bag!`, type: "success" });
   } else {
     cart.push({
       ...product,

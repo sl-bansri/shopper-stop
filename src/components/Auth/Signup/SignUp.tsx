@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { FormData } from "./typing";
-
-import { showToast } from "../../../utils/useToast";
+import { toastNotification } from "../../../utils/toastNotification";
 
 const SignUp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -30,7 +29,7 @@ const SignUp = () => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     // console.log('passwordRegex',passwordRegex);
     if (!passwordRegex.test(password)) {
-      showToast({
+      toastNotification({
         message:
           "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
         type: "error",
@@ -39,7 +38,7 @@ const SignUp = () => {
     }
 
     if (password !== confirmPassword) {
-      showToast({ message: "Password not matched", type: "error" });
+      toastNotification({ message: "Password not matched", type: "error" });
       return;
     }
 
@@ -48,7 +47,7 @@ const SignUp = () => {
     const userExists = users.find((u: any) => u.email === email);
 
     if (userExists) {
-      showToast({
+      toastNotification({
         message: "User with this email already exists!",
         type: "error",
       });

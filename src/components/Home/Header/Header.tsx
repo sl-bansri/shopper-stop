@@ -1,17 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { services } from "./constants";
 import { useEffect, useState } from "react";
-// import { useCart } from "../../../Context/CartContext";
 import type { Product } from "../../Product/typing";
 import data from "../../DataSet/Data.json";
 import { getWishLength } from "../../../utils/wish";
 import { getCartLength } from "../../../utils/cart";
-
+import { useAuth } from "../../../Context/AuthContext/AuthContext";
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const [userEmail, setUserEmail] = useState<string | null>(null);
-  // const { cartLength, wishLength } = useCart();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const navigate = useNavigate();
@@ -20,12 +19,12 @@ function Header() {
 
   useEffect(() => {
     const email = localStorage.getItem("authEmail");
-    setIsLoggedIn(!!email);
     setUserEmail(email);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("authEmail");
+    setIsLoggedIn(false);
     navigate("/login");
   };
 

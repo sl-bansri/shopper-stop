@@ -1,5 +1,5 @@
 import type { Product } from "../components/Product/typing";
-import { showToast } from "./useToast";
+import { toastNotification } from "./toastNotification";
 
 export type WishItem = Product & {
   wishId: number;
@@ -26,7 +26,7 @@ export const getWishLength = (): number => {
 export const addToWishlist = (product: Product) => {
   const wishKey = getWishKeyForUser();
   if (!wishKey) {
-    showToast({
+    toastNotification({
       message: "You must be logged in to add items to the favourite.",
       type: "error",
     });

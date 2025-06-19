@@ -5,7 +5,7 @@ import { getWishLength } from "../utils/wish";
 
 
 
-const CartContext = createContext<CartContextProps>({
+const CartContext = createContext<CartContextProps >({
   cartLength: 0,
   setCartLength: () => {},
   wishLength: 0,
@@ -15,6 +15,7 @@ const CartContext = createContext<CartContextProps>({
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+
   const [cartLength, setCartLength] = useState(getCartLength());
   const [wishLength, setWishLength] = useState(getWishLength());
 
