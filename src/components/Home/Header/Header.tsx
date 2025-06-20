@@ -1,16 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { services } from "./constants";
 import { useEffect, useState } from "react";
-// import { useCart } from "../../../Context/CartContext";
 import type { Product } from "../../Product/typing";
 import data from "../../DataSet/Data.json";
-import { getWishLength } from "../../../utils/Wish";
-import { getCartLength } from "../../../utils/Cart";
+import { getWishLength } from "../../../utils/wish";
+import { getCartLength } from "../../../utils/cart";
+import { useAuth } from "../../../Context/AuthContext/AuthContext";
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const [userEmail, setUserEmail] = useState<string | null>(null);
-  // const { cartLength, wishLength } = useCart();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const navigate = useNavigate();
@@ -19,12 +19,12 @@ function Header() {
 
   useEffect(() => {
     const email = localStorage.getItem("authEmail");
-    setIsLoggedIn(!!email);
     setUserEmail(email);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("authEmail");
+    setIsLoggedIn(false);
     navigate("/login");
   };
 
@@ -96,9 +96,7 @@ function Header() {
               </Link>
             </div>
             <div className="hidden w-full md:block ">
-              <div
-                className="w-full max-w-full md:min-w-32 flex  "
-              >
+              <div className="w-full max-w-full md:min-w-32 flex  ">
                 <div className="flex w-full items-center gap-3  rounded-[70px] bg-[#F0F0F0]   ">
                   <div>
                     <img
@@ -147,8 +145,7 @@ function Header() {
                   src="/src/assets/Images/fashion_1f40553a5f_111.gif"
                   className=" cursor-pointer md:min-w-[150px] sm:min-w-[80px]"
                 />
-              {/* </div> */}
-              
+                {/* </div> */}
               </div>
               <div className="flex cursor-pointer items-center gap-[7px]">
                 {!isLoggedIn ? (
@@ -229,43 +226,41 @@ function Header() {
       </div>
       <div>
         <div>
-            <div className="block w-full md:hidden p-2 bg-black   ">
-              <div
-                className="w-full max-w-full md:min-w-30 flex  "
-              >
-                <div className="flex w-full items-center gap-3 p-1  rounded-[70px] bg-[#F0F0F0]  md:p-2">
-                  <div>
-                    <img
-                      className=" w-5 ml-2  "
-                      alt="search"
-                      src="/src/assets/Images/search.png"
-                    ></img>
-                  </div>
-                  <div className="w-full relative ">
-                    <input
-                      placeholder="What are you looking for ?"
-                      className="w-full bg-transparent text-sm font-normal  outline-none placeholder:text-black placeholder:text-opacity-70  "
-                      value={searchTerm}
-                      onChange={handleInputChange}
-                    />
-                    {searchTerm && (
-                      <ul className="bg-white shadow-md absolute z-50 w-full max-h-[300px] overflow-y-auto rounded-md mt-2 ">
-                        {searchResults.map((product) => (
-                          <li
-                            key={product.id}
-                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer  text-center "
-                            onClick={() => handleProductClick(product.id)}
-                          >
-                            <div className="font-medium">{product.name}</div>
-                            <div></div>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
+          <div className="block w-full md:hidden p-2 bg-black   ">
+            <div className="w-full max-w-full md:min-w-30 flex  ">
+              <div className="flex w-full items-center gap-3 p-1  rounded-[70px] bg-[#F0F0F0]  md:p-2">
+                <div>
+                  <img
+                    className=" w-5 ml-2  "
+                    alt="search"
+                    src="/src/assets/Images/search.png"
+                  ></img>
+                </div>
+                <div className="w-full relative ">
+                  <input
+                    placeholder="What are you looking for ?"
+                    className="w-full bg-transparent text-sm font-normal  outline-none placeholder:text-black placeholder:text-opacity-70  "
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                  />
+                  {searchTerm && (
+                    <ul className="bg-white shadow-md absolute z-50 w-full max-h-[300px] overflow-y-auto rounded-md mt-2 ">
+                      {searchResults.map((product) => (
+                        <li
+                          key={product.id}
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer  text-center "
+                          onClick={() => handleProductClick(product.id)}
+                        >
+                          <div className="font-medium">{product.name}</div>
+                          <div></div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>

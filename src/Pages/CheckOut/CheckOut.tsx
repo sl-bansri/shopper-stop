@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import type { CheckOutProps } from "./typing";
-import { getCart, getCartKeyForUser } from "../../utils/Cart";
+import { getCart, getCartKeyForUser } from "../../utils/cart";
+import { toastNotification } from "../../utils/toastNotification";
 
 const CheckOut = ({ totalPrice }: CheckOutProps) => {
   const [formData, setFormData] = useState({
@@ -31,16 +31,7 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
     e.preventDefault();
     const userEmail = localStorage.getItem("authEmail");
     if (!userEmail) {
-      toast.error("User Not found Login first", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toastNotification({ message: "User Not found Login first", type: "error" });
       return;
     }
     const checkoutDataKey = `checkOut_${userEmail}`;
@@ -55,15 +46,9 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
     };
 
     localStorage.setItem(checkoutDataKey, JSON.stringify([...userData, order]));
-    toast.success("Congratulations! Order Placed successfully", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
+    toastNotification({
+      message: "Congratulations! Order Placed successfully",
+      type: "success",
     });
 
     navigate("/");
@@ -128,6 +113,7 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
                   type="tel"
                   id="phone"
                   name="phone"
+                  maxLength={10}
                   value={formData.phone}
                   onChange={handleChange}
                   required

@@ -1,5 +1,5 @@
-import { toast } from "react-toastify";
 import type { Product } from "../components/Product/typing";
+import {  toastNotification } from "./toastNotification";
 
 export type CartItem = Product & {
   cartId: number;
@@ -29,31 +29,31 @@ export const addToCart = (product: Product, selectedSize: string) => {
   const cartKey = getCartKeyForUser();
 
   if (!cartKey) {
-    toast.error("You must be logged in to add items to the cart.", {
-      position: "top-center",
-      autoClose: 2000,
-      theme: "dark",
-    });
+    toastNotification({ message: "Please login to add items to cart", type: "error" });
     return;
   }
 
   const cart: CartItem[] = getCart();
 
-  toast.success(`${product.name} is added to Bag!`, {
-    position: "top-center",
-    autoClose: 2000,
-    theme: "dark",
-  });
-
   const sizeData = product.sizes?.find((s) => s.size === selectedSize);
   const sizePrice = sizeData ? sizeData.price : product.Price;
 
   const existingItemIndex = cart.findIndex(
-    (item) => item.id === product.id && item.selectedSize === selectedSize
+    (item) =>
+      (item.id === product.id && item.selectedSize === selectedSize) ||
+      (item.id === product.id && !item.hasSize)
   );
 
   if (existingItemIndex !== -1) {
     cart[existingItemIndex].quantity += 1;
+
+    if (cart[existingItemIndex].quantity >= 11) {
+      toastNotification({ message: "not in stock", type: "error" });
+
+      cart[existingItemIndex].quantity == 10;
+      return;
+    }
+    toastNotification({ message: `${product.name} is added to bag!`, type: "success" });
   } else {
     cart.push({
       ...product,
@@ -75,7 +75,11 @@ export const removeFromCart = (cartId: number) => {
   localStorage.setItem(cartKey, JSON.stringify(updatedCart));
 };
 
-export const updateQuantity = (productId: string, quantity: number, selectedSize: string) => {
+export const updateQuantity = (
+  productId: string,
+  quantity: number,
+  selectedSize: string
+) => {
   const cartKey = getCartKeyForUser();
   if (!cartKey) return;
 

@@ -4,40 +4,68 @@ import {
   getWishlist,
   removeFromWishlist,
   type WishItem,
-} from "../../utils/Wish";
-import type { Product } from "../../components/Product/typing";
-// import { toast } from "react-toastify";
-import { addToCart, getCartLength } from "../../utils/Cart";
+} from "../../utils/wish";
+import { addToCart, getCartLength } from "../../utils/cart";
 import { useCart } from "../../Context/CartContext";
+import { toastNotification } from "../../utils/toastNotification";
+import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 
 const WishList = () => {
   const [wishItems, setWishItems] = useState<WishItem[]>(getWishlist());
   const { setCartLength, setWishLength } = useCart();
 
+  const [showSizeItemId, setShowSizeItemId] = useState<string | null>(null);
+  const [selectedSizes, setSelectedSizes] = useState<{
+    [productId: string]: string;
+  }>({});
+  // console.log('selectedSizes',selectedSizes);
   useEffect(() => {
     setWishItems(getWishlist());
   }, []);
 
-  const handleRemove = (id: string, selectedSize: string) => {
-    removeFromWishlist(id, selectedSize);
+  const handleRemove = (id: string) => {
+    removeFromWishlist(id);
     setWishLength(getWishLength());
     setWishItems(getWishlist());
   };
-  const handleAddToCart = (product: Product, selectedSize: string) => {
-    addToCart(product, selectedSize);
-    removeFromWishlist(product.id, selectedSize);
-    setWishLength(getWishLength());
-    setCartLength(getCartLength());
 
-    setWishItems(getWishlist());
+  const handleSizeClick = (productId: string) => {
+    setShowSizeItemId(productId);
+
+  };
+
+  const handleSelectSize = (productId: string, size: string) => {
+    setSelectedSizes((prev) => ({ ...prev, [productId]: size }));
+  };
+
+  const handleConfirmAddToCart = (product: WishItem) => {
+    const size = selectedSizes[product.id];
+
+    if (!size && product.hasSize) {
+      toastNotification({ message: "Please select a size", type: "error" });
+      return;
+    }
+  
+    else {
+      addToCart(product, size);
+      removeFromWishlist(product.id);
+
+      setCartLength(getCartLength());
+      setWishLength(getWishLength());
+      setWishItems(getWishlist());
+
+      setShowSizeItemId(null);
+    }
+
   };
 
   return (
     <section className="w-full">
-      <div className="mx-auto sm:px-6 lg:px-8 pt-4">
-        <div className="max-w-2xl  flex flex-col items-center mx-auto p-4 ">
-          <h2 className="text-2xl font-bold text-center mb-6">Your WishList</h2>
+      <div className="mx-auto  lg:px-8 pt-4">
+        <div className="max-w-2xl mx-auto p-4 flex flex-col  items-center">
+          <h2 className="text-2xl font-bold mb-6 text-center">Your Wishlist</h2>
+
           {wishItems.length === 0 ? (
             <div className="mx-auto max-w-full ">
               <div className="px-5 py-4 md:mx-auto md:w-[60%] md:p-1  ">
@@ -62,34 +90,67 @@ const WishList = () => {
               {wishItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex w-full gap-4 items-center border p-4 rounded-md shadow"
+                  className="flex flex-row sm:flex-row items-center sm:items-center gap-4 border p-4 rounded-md shadow"
                 >
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-24  bg-cover"
+                    className="w-24 bg-cover rounded-md"
                   />
-                  <div className="flex-1">
+
+                  <div className="flex-1 flex flex-col gap-1">
                     <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p>{item.Description}</p>
-                    {/* <p>Size: {item.selectedSize}</p>
-                    <p>Price: ₹{item.sizePrice * item.quantity}</p> */}
-                    {/* <p>Quantity : {item.quantity}</p> */}
-                    <div className="flex items-center gap-2 mt-2">
-                      <button
-                        className="bg-[#000000] cursor-pointer p-1  rounded-md text-[#ffffff] w-1/2 sm:w-1/2 sm:p-2"
-                        onClick={() => handleAddToCart(item, item.selectedSize)}
+                    <p className="text-sm text-gray-600">{item.Description}</p>
+
+                    {showSizeItemId === item.id ? (
+                      <>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {item.sizes &&
+                            item.sizes?.map((size) => (
+                              <Button 
+                                variant="primary" size="small"
+                                
+                                key={size.size}
+                                onClick={() =>
+                                  handleSelectSize(item.id, size.size)
+                                }
+                                className={`mb-4 ${
+                                  selectedSizes[item.id] === size.size
+                                    ? " border-black font-semibold"
+                                    : "border-gray-400"
+                                }`}
+                              >
+                                {size.size}
+                              </Button>
+                            ))}
+                        </div>
+                        <Button 
+                          variant="secondary" size="small"
+
+                          onClick={() => handleConfirmAddToCart(item)}
+                        >
+                          Confirm Add to Cart
+                        </Button>
+                      </>
+                    ) : (
+                      <Button 
+                        variant="secondary"
+                        size="small"
+                        onClick={() => handleSizeClick(item.id)}
+                        // className="mt-3 bg-black text-white px-4 py-2 rounded text-sm"
                       >
                         Add to Cart
-                      </button>
-                    </div>
+                      </Button>
+                    )}
                   </div>
-                  <button
-                    onClick={() => handleRemove(item.id, item.selectedSize)}
-                    className="text-[red] font-bold text-xl"
+
+                  <Button
+                  variant="cross" size="large"  
+                    onClick={() => handleRemove(item.id)}
+                    // className=" text-2xl  "
                   >
                     x
-                  </button>
+                  </Button>
                 </div>
               ))}
             </div>

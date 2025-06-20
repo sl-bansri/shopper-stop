@@ -13,11 +13,26 @@ import AuthRoute from "./components/Auth/ProtectedRoute";
 import ScrollToTop from "./ScrollToTop";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/Signup";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import { useAuth } from "./Context/AuthContext/AuthContext";
+
 
 const App = () => {
+  const { setIsLoggedIn } = useAuth();
+  useEffect(() => {
+    const email = localStorage.getItem("authEmail");
+    setIsLoggedIn(!!email);
+  }, []);
+
   return (
     <Router>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        theme="dark"
+      />
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
@@ -57,11 +72,9 @@ const App = () => {
             path="/category/:categoryName/:subCategoryName/:productId"
             element={
               <>
-               
                 <AuthRoute authType="public">
                   <ProductDetail />
                 </AuthRoute>
-                {/* <ToastContainer /> */}
               </>
             }
           />
@@ -77,7 +90,6 @@ const App = () => {
             path="/wishlist"
             element={
               <>
-           
                 <AuthRoute authType="private">
                   <WishList />
                 </AuthRoute>
@@ -85,11 +97,7 @@ const App = () => {
               </>
             }
           />
-          <>
-                {/* <Search /> */}
-              
-            
-         </>
+
         </Route>
 
         <Route
@@ -108,11 +116,7 @@ const App = () => {
             </AuthRoute>
           }
         />
-        {/* <Route path="/checkout" element={
-          <AuthRoute authType="private"><CheckOut /></AuthRoute>
-        } /> */}
       </Routes>
-      
     </Router>
   );
 };

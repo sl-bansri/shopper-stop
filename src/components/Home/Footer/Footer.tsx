@@ -74,8 +74,8 @@ const Footer = () => {
           <div className="flex flex-col justify-center gap-4 border-0 border-[#221F20] border-opacity-[0.34] py-4  md:my-6 md:flex-row md:items-center md:border lg:my-8 lg:gap-8 lg:py-6 xl:my-10 xl:gap-16 xl:py-8">
             <div className="flex items-center gap-2 border-b  pb-4 md:border-0 md:pb-0 lg:gap-4 xl:gap-5">
               <p className="text-xs lg:text-base xl:text-lg text-[#221F20] font-sans opacity-75 uppercase !leading-[25.56px]  md:text-xs select-none md:select-text">Follow us on</p>
-              <img className="size-5 cursor-pointer xl:size-[42px]"  src="/src/assets/footer/twitter_b1a5711e35.png"/>
-              <img className="size-5 cursor-pointer xl:size-[42px]"  src="/src/assets/footer/instagram.png"/>
+              <Link to="http://x.com/i/flow/login"><img className="size-5 cursor-pointer xl:size-[42px]"  src="/src/assets/footer/twitter_b1a5711e35.png"/></Link>
+              <Link to="https://www.instagram.com"><img className="size-5 cursor-pointer xl:size-[42px]"  src="/src/assets/footer/instagram.png"/></Link>
             </div>
           </div>
           <div className="footerXXS flex justify-between gap-2.5 md:items-center">
@@ -177,7 +177,7 @@ const Footer = () => {
         </div>
         <div className="bg-[#070707] w-full p-2">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-              <p className="text-center text-[#ddb892] text-xs sm:text-sm">
+              <p className="text-center text-[#fdfdfc] text-xs sm:text-sm">
                 © {new Date().getFullYear()} Shopper. All rights reserved.
               </p>
             </div>
