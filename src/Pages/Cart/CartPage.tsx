@@ -9,6 +9,10 @@ import {
 import { useCart } from "../../Context/CartContext";
 import CheckOut from "../CheckOut";
 import { Link } from "react-router-dom";
+import Button from "../../components/Button";
+import SectionHeading from "../../components/SectionHeading";
+import ItemHeading from "../../components/ItemHeading";
+
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>(getCart());
@@ -68,9 +72,9 @@ const CartPage = () => {
                 </div>
               ) : (
                 <div className="w-full flex flex-col justify-center">
-                  <h2 className="text-2xl font-bold text-center mb-6 ">
+                  <SectionHeading variant="primary" size="large" className="font-sans text-center">
                     Your Cart
-                  </h2>
+                  </SectionHeading>
                   <div className="gap-4 flex mx-auto flex-col sm:flex-row ">
                     <div className="flex flex-col gap-4  mx-auto">
                       {cartItems.map((item) => (
@@ -84,9 +88,9 @@ const CartPage = () => {
                             className="w-24 bg-cover"
                           />
                           <div className="flex-1">
-                            <h3 className="text-lg font-semibold">
+                            <ItemHeading variant="primary" size="medium">
                               {item.name}
-                            </h3>
+                            </ItemHeading>
                             <div
                               className="flex  flex-col w-full justify-between md:flex-col  lg:flex-row lg:gap-14 lg:justify-start
                             sm:flex-col"
@@ -146,12 +150,12 @@ const CartPage = () => {
                               </button>
                             </div>
                           </div>
-                          <button
+                          <Button
                             onClick={() => handleRemove(item.cartId)}
-                            className="text-[red] font-bold text-xl"
+                            variant="cross" size="large"
                           >
                             x
-                          </button>
+                          </Button>
                         </div>
                       ))}
                     </div>
@@ -164,9 +168,9 @@ const CartPage = () => {
                       </div>
                       <div className="xs:border-1 border-x xs:border-divider">
                         <div className="flex items-center justify-between px-4 py-3 md:px-6">
-                          <p className="text-xs font-normal text-neutral-500">
+                          <ItemHeading variant="secondary" size="small">
                             Total Item
-                          </p>
+                          </ItemHeading>
                           <div className="text-xs font-medium">
                             {getCartLength()}
                           </div>
@@ -175,9 +179,9 @@ const CartPage = () => {
                         <div className="h-px w-full border-t border-dashed my-2"></div>
 
                         <div className="flex items-center justify-between px-4 py-1 md:px-6">
-                          <p className="text-xs text-neutral-500">
+                          <ItemHeading variant="secondary" size="small">
                             Total Price
-                          </p>
+                          </ItemHeading>
                           <div className="text-xs font-medium">
                             ₹{totalPrice}
                           </div>
@@ -195,9 +199,9 @@ const CartPage = () => {
                         <div className="h-px w-full border-t border-divider my-2"></div>
 
                         <div className="flex items-center justify-between px-4 py-2 md:px-6">
-                          <div className="text-xs text-neutral-500">
+                          <ItemHeading variant="secondary" size="small">
                             Delivery Fee
-                          </div>
+                          </ItemHeading>
                           <div className="text-xs font-medium">free</div>
                         </div>
 

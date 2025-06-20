@@ -137,7 +137,7 @@ function Header() {
               </div>
             </div>
 
-            <div className=" mx-4 my-3 flex gap-3 items-center justify-between text-center  lg:gap-6 md:gap-7">
+            <div className="mx-3 md:mx-0 my-3 flex gap-3 items-center justify-between text-center  lg:gap-6 md:gap-7">
               <div>
                 {/* <div className="relative flex  flex-col items-center justify-center overflow-hidden ">
                 <p className="absolute animate-ping  left-[-60px] top-[0px] rounded text-[#fa2121] w-full  font-bold text-[8px]">new</p> */}

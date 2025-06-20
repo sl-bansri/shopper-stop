@@ -13,7 +13,7 @@ import {
 import { addToCart, getCartLength } from "../../utils/cart";
 import { toastNotification } from "../../utils/toastNotification";
 import { useAuth } from "../../Context/AuthContext/AuthContext";
-import Button from "../Button/Button";
+import Button from "../Button";
 
 const categoryData: CategoryData = data;
 
@@ -58,9 +58,10 @@ const ProductDetail = () => {
       });
       return;
     }
-
+    
     addToCart(product, selectedSize);
     setCartLength(getCartLength());
+    
 
     if (isInWishlist) {
       removeFromWishlist(product.id);

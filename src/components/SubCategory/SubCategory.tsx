@@ -10,6 +10,10 @@ import {
 import type { Product } from "../Product/typing";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../Context/AuthContext/AuthContext";
+import ItemHeading from "../ItemHeading";
+import ImagePoster from "../ImagePoster";
+import GridItems from "../GridItems";
+
 
 const categoryData: CategoryData = data;
 const SubCategory = () => {
@@ -44,13 +48,13 @@ const SubCategory = () => {
     setWishListItems(getWishlist());
   };
   return (
-    <section className="w-full ">
+    <section className="w-full mx-auto pt-4 sm:px-6 lg:px-8 ">
       <div className="mx-auto pt-4 sm:px-6 lg:px-8 ">
         <div className="shadow-xl w-full h-[250px] p-2 sm:p-0  sm:h-[400px]">
-          <img
+          <ImagePoster
             src={subCategory.productbanner}
             alt={subCategory.name}
-            className="w-full sm:h-[400px]  bg-cover sm:bg-cover h-[250px]"
+            
           />
         </div>
         <h2 className="text-2xl font-bold text-center my-4">
@@ -58,7 +62,7 @@ const SubCategory = () => {
         </h2>
 
         <div className="w-full flex justify-center md:justify-start">
-          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-4">
+          <GridItems variant="primary">
             {subCategory.product.map((prod) => (
               <div className=" w-full " key={prod.id}>
                 <div className=" relative bg-[#ebe2e2] top-10 sm:top-0 left-4 sm:left-10 z-30 flex size-[33.23px] cursor-pointer items-center justify-center rounded-[74.77px]  p-[2.23px] md:top-10 md:p-[6px] md:left-4 hover:bg-slate-300">
@@ -72,7 +76,7 @@ const SubCategory = () => {
                       src="/src/assets/Images/heart_black.png"
                       alt="save"
                       className="w-6  cursor-pointer relative"
-                      onClick={() => handleWishList(prod)}
+                      onClick={() => handleWishList(prod) }
                     />
                   )}
                 </div>
@@ -91,17 +95,17 @@ const SubCategory = () => {
                       className="w-full object-cover "
                     />
                     <div className="p-3">
-                      <h3 className="text-xl font-semibold  ">{prod.name}</h3>
-                      <p className=" text-sm text-[#575555]">
+                      <ItemHeading variant="primary" size="medium">{prod.name}</ItemHeading>
+                      <ItemHeading variant="secondary" className="text-xs">
                         {prod.Description}
-                      </p>
-                      <p className="text-left "> Price : ₹{prod.Price}</p>
+                      </ItemHeading>
+                      <p className="text-left"> Price : ₹{prod.Price}</p>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
+          </GridItems>
         </div>
       </div>
     </section>

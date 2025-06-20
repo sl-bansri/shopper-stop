@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { item, services } from "./Constant";
+import SectionHeading from "../../SectionHeading";
 
 
 const Footer = () => {
@@ -8,9 +9,9 @@ const Footer = () => {
       <div className="pt-4 flex flex-col gap-10">
         <div className="bg-[white] pl-4 md:px-[4.861vw] xxl:px-[70px]">
             <div className="text-left text-base font-medium capitalize leading-xs md:text-center md:text-xl lg:text-2xl xl:text-[2rem] mb-5 md:mb-8 select-none md:select-text">
-              <div className="flex w-full justify-center gap-2">
-                <div className="text-[#A3A3A3] ">Our Unique</div>
-                <div className="font-bold text-[#1a1919]">Offerings</div>
+              <div className="flex w-full justify-center gap-2 uppercase font-thin italic ">
+                <SectionHeading variant="secondary" size="medium" >Our Unique</SectionHeading>
+          <SectionHeading variant="primary" size="large">Offering</SectionHeading>
               </div>
             </div>
             <div className="bg-transparent hide-scrollbar mt-4 pb-2 items-center gap-1 overflow-x-auto pr-4 md:mt-6  md:justify-between md:pr-0 lg:mt-7  xl:mt-8">

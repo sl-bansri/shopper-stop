@@ -8,8 +8,10 @@ import {
 import { addToCart, getCartLength } from "../../utils/cart";
 import { useCart } from "../../Context/CartContext";
 import { toastNotification } from "../../utils/toastNotification";
-import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
+import Button from "../../components/Button";
+import SectionHeading from "../../components/SectionHeading";
+import ItemHeading from "../../components/ItemHeading";
 
 const WishList = () => {
   const [wishItems, setWishItems] = useState<WishItem[]>(getWishlist());
@@ -64,7 +66,7 @@ const WishList = () => {
     <section className="w-full">
       <div className="mx-auto  lg:px-8 pt-4">
         <div className="max-w-2xl mx-auto p-4 flex flex-col  items-center">
-          <h2 className="text-2xl font-bold mb-6 text-center">Your Wishlist</h2>
+          <SectionHeading variant="primary" size="large" className="font-sans">Your Wishlist</SectionHeading>
 
           {wishItems.length === 0 ? (
             <div className="mx-auto max-w-full ">
@@ -99,8 +101,8 @@ const WishList = () => {
                   />
 
                   <div className="flex-1 flex flex-col gap-1">
-                    <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p className="text-sm text-gray-600">{item.Description}</p>
+                    <ItemHeading variant="primary" size="medium">{item.name}</ItemHeading>
+                    <ItemHeading variant="secondary" size="small">{item.Description}</ItemHeading>
 
                     {showSizeItemId === item.id ? (
                       <>

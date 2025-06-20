@@ -1,5 +1,6 @@
 import type { Product } from "../components/Product/typing";
-import {  toastNotification } from "./toastNotification";
+import { toastNotification } from "./toastNotification";
+import { useAuth } from "../Context/AuthContext/AuthContext";
 
 export type CartItem = Product & {
   cartId: number;
@@ -11,6 +12,7 @@ export type CartItem = Product & {
 export const getCartKeyForUser = () => {
   const email = localStorage.getItem("authEmail");
   return email ? `cart_${email}` : null;
+  
 };
 
 export const getCart = (): CartItem[] => {
@@ -27,14 +29,17 @@ export const getCartLength = (): number => {
 
 export const addToCart = (product: Product, selectedSize: string) => {
   const cartKey = getCartKeyForUser();
-
   if (!cartKey) {
-    toastNotification({ message: "Please login to add items to cart", type: "error" });
+    toastNotification({
+      message: "Please login to add items to cart",
+      type: "error",
+    });
     return;
   }
-
+    
+  
   const cart: CartItem[] = getCart();
-
+  console.log("cartKey",cart)
   const sizeData = product.sizes?.find((s) => s.size === selectedSize);
   const sizePrice = sizeData ? sizeData.price : product.Price;
 
@@ -49,11 +54,15 @@ export const addToCart = (product: Product, selectedSize: string) => {
 
     if (cart[existingItemIndex].quantity >= 11) {
       toastNotification({ message: "not in stock", type: "error" });
-
       cart[existingItemIndex].quantity == 10;
       return;
     }
-    toastNotification({ message: `${product.name} is added to bag!`, type: "success" });
+
+    console.log(product, "product");
+    toastNotification({
+      message: `${product.name} is added to bag!`,
+      type: "success"
+    });
   } else {
     cart.push({
       ...product,
@@ -61,6 +70,10 @@ export const addToCart = (product: Product, selectedSize: string) => {
       selectedSize,
       sizePrice,
       quantity: 1,
+    });
+      toastNotification({
+      message: `${product.name} is added to bag!`,
+      type: "success"
     });
   }
 
