@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import { services } from "./constants";
-import GridItems from "../../GridItems";
 
 const CategorySection = () => {
   return (
     <section className="mt-4 p-2 mx-auto bg-[#ebeeee8a]">
       <div className=" mx-auto  sm:px-6 lg:px-8 flex flex-col justify-center">
-        <GridItems variant="secondary" className="self-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, id) => (
             <div key={id} className="bg-gray-100   flex  text-center justify-center">
               <div>
@@ -20,7 +19,7 @@ const CategorySection = () => {
               </div>
             </div>
           ))}
-        </GridItems>
+        </div>
       </div>
     </section>
   );

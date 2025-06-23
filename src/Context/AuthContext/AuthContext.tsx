@@ -9,7 +9,8 @@ const AuthContext = createContext<AuthContextProps>({
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const initialLoginState = !!localStorage.getItem("authEmail");
+  const [isLoggedIn, setIsLoggedIn] = useState(initialLoginState);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>

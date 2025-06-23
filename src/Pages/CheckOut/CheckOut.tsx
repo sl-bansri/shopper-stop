@@ -1,10 +1,12 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { CheckOutProps } from "./typing";
 import { getCart, getCartKeyForUser } from "../../utils/cart";
 import { toastNotification } from "../../utils/toastNotification";
+import InputField from "../../components/InputField";
 
 const CheckOut = ({ totalPrice }: CheckOutProps) => {
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -66,60 +68,38 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
 
           <form className="space-y-6 p-3 " onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-[#000000]  mb-1"
-                >
-                  Full Name
-                </label>
-                <input
+              <InputField
+                label="Full Name"
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required
-                  className="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 ring-[#000000]"
+                   
+                  
                 />
-              </div>
+              
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-[#000000] mb-1"
-                >
-                  Email
-                </label>
-                <input
+              <InputField
+                label= "Email"
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
-                  className="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000]"
+                  
+          
                 />
-              </div>
 
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-[#000000] mb-1"
-                >
-                  Phone Number
-                </label>
-                <input
+              <InputField 
+                label="Phone Number"
                   type="tel"
                   id="phone"
                   name="phone"
                   maxLength={10}
                   value={formData.phone}
                   onChange={handleChange}
-                  required
-                  className="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000]"
                 />
-              </div>
 
               <div>
                 <label
@@ -129,7 +109,6 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
                   Delivery Address
                 </label>
                 <textarea
-                  // type="text"
                   id="address"
                   name="address"
                   rows={2}
@@ -140,41 +119,24 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-medium text-[#000000] mb-1"
-                >
-                  City
-                </label>
-                <input
+              <InputField
+                label ='City'
                   type="text"
                   id="city"
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
-                  required
-                  className="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000]"
                 />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="zipCode"
-                  className="block text-sm font-medium text-[#000000] mb-1"
-                >
-                  ZIP Code
-                </label>
-                <input
+              <InputField
+                label= 'ZIP Code'              
                   type="text"
                   id="zipCode"
                   name="zipCode"
                   value={formData.zipCode}
                   onChange={handleChange}
-                  required
-                  className="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000]"
+                  
                 />
-              </div>
+             
             </div>
 
             <div>
@@ -215,14 +177,7 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
             </div>
 
             <div className="border-t pt-4">
-              {/* <div className="flex justify-between mb-2">
-                <span className="text-[#000000]">Subtotal:</span>
-                <span className="font-medium text-[#000000]">$</span>
-              </div> */}
-              {/* <div className="flex justify-between mb-2 text-[#000000]">
-                <span className="">Delivery Fee:</span>
-                <span className="font-medium">$5.00</span>
-              </div> */}
+              
               <div className="flex justify-between text-[#000000] text-lg font-medium">
                 <span className="font-bold">Total:</span>
                 <span>₹ {totalPrice}</span>

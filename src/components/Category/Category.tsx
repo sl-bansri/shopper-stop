@@ -28,7 +28,7 @@ const Category = () => {
             className="p-2 sm:p-0 "
           />
         </div>
-        <div className=" border-2 inset-2 bg-[#eeebebbb] justify-center  flex gap-3 ">
+        <div className="ml-4 mr-4 border-2 inset-2 bg-[#eeebebbb] justify-center md:ml-0  md:mr-0 flex gap-3">
           <SectionHeading variant="primary" size="large" className="italic">{category.name}</SectionHeading>
           <SectionHeading variant="secondary" size="medium" className="italic">Collection</SectionHeading>
         </div>

@@ -1,6 +1,12 @@
-import React from 'react'
-export interface InputFieldProps extends React.HTMLAttributes<HTMLImageElement> {
-      variant?: 'primary' | 'secondary' |'ordinary' ;
-      size?: 'small' | 'medium' | 'large';
-      children: React.ReactNode;
+export interface InputFieldProps {
+      label: string;
+      id: string;
+      name: string;
+      type?: 'text' | 'email' | 'password' | 'number'| 'tel'; 
+      value: string;
+      onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+      placeholder?: string;
+      className?: string; 
+      maxLength?:number
+      // required?: boolean
     }

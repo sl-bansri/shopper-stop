@@ -1,37 +1,36 @@
-import React from 'react'
-import clsx from 'clsx'
+import React from 'react';
 import type { InputFieldProps } from './typing';
 
+    const InputField: React.FC<InputFieldProps> = ({
+      label,
+      id,
+      name,
+      type = 'text',
+      value,
+      onChange,
+      placeholder,
+      className,
+      maxLength,
+      
+    }) => {
+      return (
+        <div className={`${className}`}>
+          <label htmlFor={id} className="block text-sm font-medium text-[#000000]  mb-1">
+            {label}
+          </label>
+          <input
+            type={type}
+            id={id}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            className={`w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 ring-[#000000]`}
+            required={true}
+            maxLength={maxLength}
+          />
+        </div>
+      );
+    };
 
-
-
-const InputField: React.FC<InputFieldProps> = ({ variant = 'primary', size = 'medium',className, children, ...rest }) => {
- 
-
-  const variantStyles = {
-    primary: "font-semibold ",
-    secondary: 'text-gray-600',
-    ordinary:"font-medium",
-  };
-
-  const sizeStyles = {
-    small: 'text-sm',
-    medium: 'text-lg',
-    large: 'text-2xl',
-  };
-
-  const combinedClasses = clsx(
-    
-    variantStyles[variant],
-    sizeStyles[size],
-    className,
-  );
-
-  return (
-    <p className={combinedClasses} {...rest}>
-      {children}
-    </p>
-  );
-};
-
-export default InputField;
+    export default InputField;
