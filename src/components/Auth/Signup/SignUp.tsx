@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { FormData } from "./typing";
 import { toastNotification } from "../../../utils/toastNotification";
+import InputField from "../../InputField";
 
 const SignUp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -27,7 +28,6 @@ const SignUp = () => {
 
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    // console.log('passwordRegex',passwordRegex);
     if (!passwordRegex.test(password)) {
       toastNotification({
         message:
@@ -70,80 +70,49 @@ const SignUp = () => {
               Create Account
             </h2>
             <form onSubmit={handleSignUp} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-[black] font-medium mb-2"
-                >
-                  Full Name
-                </label>
-                <input
+              <InputField
+              variant="secondary"
+                label = "Full Name"
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full p-3   bg-transparent border-b-2 border-b-[#f060b9] text-[black] focus:outline-none"
                   placeholder="Enter your full name"
-                  required
                 />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-[black] font-medium mb-2"
-                >
-                  Email Address
-                </label>
-                <input
+              <InputField
+              variant="secondary"
+                label ='Email Address'
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full p-3  bg-transparent border-b-2 border-b-[#f060b9] text-[black] focus:outline-none"
                   placeholder="Enter your email"
-                  required
                 />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-[black] font-medium mb-2"
-                >
-                  Password
-                </label>
-                <input
+              <InputField
+              label="Password"
+                  variant="secondary"
                   type="password"
                   id="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full p-3  bg-transparent border-b-2 border-b-[#f060b9] text-[black] focus:outline-none"
                   placeholder="Create a password"
                   minLength={8}
-                  required
+                  
                 />
-              </div>
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-[black] font-medium mb-2"
-                >
-                  Confirm Password
-                </label>
-                <input
+              <InputField
+              variant="secondary"
+                label="Confirm Password"         
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full p-3  bg-transparent border-b-2 border-b-[#f060b9] text-[black] focus:outline-none"
                   placeholder="Confirm your password"
                   minLength={8}
-                  required
                 />
-              </div>
               <button
                 type="submit"
                 className="w-full bg-[black] text-white py-1 rounded-lg hover:bg-[#68666767] transition-colors font-medium text-lg"

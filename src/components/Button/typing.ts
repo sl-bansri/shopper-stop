@@ -5,6 +5,3 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
       children: React.ReactNode;
     }
 
-// export type ButtonComponentProps = {
-//     button : ButtonProps
-// }

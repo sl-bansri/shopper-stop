@@ -3,5 +3,4 @@ export interface ImagePosterProps extends React.ImgHTMLAttributes<HTMLImageEleme
       src:string |undefined,
       alt:string,
       variant?: 'primary' | 'secondary'  ;
-      // children: React.ReactNode;
     }

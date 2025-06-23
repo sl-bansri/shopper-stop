@@ -15,7 +15,7 @@ const MainCategory = () => {
       <div className="mx-auto pt-4 sm:px-6 lg:px-8 ">
         <div className="ml-4 mr-4 border-2 inset-2 bg-[#eeebebbb] justify-center  flex gap-3 ">
           <SectionHeading variant="primary" size="large">Global</SectionHeading>
-          <SectionHeading variant="secondary" size="medium">Glam</SectionHeading>
+          <SectionHeading variant="secondary" size="medium" className="pt-1">Glam</SectionHeading>
         </div>
         <ImagePoster
           src="/src/assets/Images/menswear_main_banner_web_cedd26d476.avif"
@@ -26,7 +26,7 @@ const MainCategory = () => {
       <div className="mx-auto pt-4 sm:px-6 lg:px-8 ">
         <div className="ml-4 mr-4 border-2 inset-2 bg-[#eeebebbb] justify-center  flex gap-3 ">
           <SectionHeading variant="primary" size="large">Essentials</SectionHeading>
-          <SectionHeading variant="secondary" size="medium">
+          <SectionHeading variant="secondary" size="medium" className="pt-1">
             For Style
           </SectionHeading>
         </div>

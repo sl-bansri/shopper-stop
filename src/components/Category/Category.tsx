@@ -20,9 +20,10 @@ const Category = () => {
 
   return (
     <section className=" w-full mx-auto pt-4 sm:px-6 lg:px-8 ">
-      <div className="mx-auto pt-4 sm:px-6 lg:px-8 flex flex-col gap-4 ">
+      <div className="mx-auto  sm:px-6 lg:px-8 flex flex-col gap-4 ">
         <div className="w-full sm:h-[400px] p-2 sm:p-0 bg-cover sm:bg-cover h-[250px]">
           <ImagePoster
+          variant="primary"
             src={category.mainbanner}
             alt={category.name}
             className="p-2 sm:p-0 "
@@ -30,7 +31,7 @@ const Category = () => {
         </div>
         <div className="ml-4 mr-4 border-2 inset-2 bg-[#eeebebbb] justify-center md:ml-0  md:mr-0 flex gap-3">
           <SectionHeading variant="primary" size="large" className="italic">{category.name}</SectionHeading>
-          <SectionHeading variant="secondary" size="medium" className="italic">Collection</SectionHeading>
+          <SectionHeading variant="secondary" size="medium" className="italic pt-1">Collection</SectionHeading>
         </div>
         <div>
           <div className="w-full m-4 mx-auto sm:m-0  ">

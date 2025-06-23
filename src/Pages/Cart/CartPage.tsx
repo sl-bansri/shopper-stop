@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   getCart,
   getCartLength,
@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import SectionHeading from "../../components/SectionHeading";
 import ItemHeading from "../../components/ItemHeading";
-
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>(getCart());
@@ -36,11 +35,12 @@ const CartPage = () => {
     setCartLength(getCartLength());
   };
 
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.sizePrice * item.quantity,
-    0
+  const totalPrice = useMemo(
+    () =>
+      cartItems.reduce((acc, item) => acc + item.sizePrice * item.quantity, 0),
+    [cartItems]
   );
-
+  
   return (
     <section className="w-full ">
       <div className="mx-auto sm:px-6 lg:px-8 ">
@@ -72,7 +72,11 @@ const CartPage = () => {
                 </div>
               ) : (
                 <div className="w-full flex flex-col justify-center">
-                  <SectionHeading variant="primary" size="large" className="font-sans text-center">
+                  <SectionHeading
+                    variant="primary"
+                    size="large"
+                    className="font-sans text-center"
+                  >
                     Your Cart
                   </SectionHeading>
                   <div className="gap-4 flex mx-auto flex-col sm:flex-row ">
@@ -152,7 +156,8 @@ const CartPage = () => {
                           </div>
                           <Button
                             onClick={() => handleRemove(item.cartId)}
-                            variant="cross" size="large"
+                            variant="cross"
+                            size="large"
                           >
                             x
                           </Button>

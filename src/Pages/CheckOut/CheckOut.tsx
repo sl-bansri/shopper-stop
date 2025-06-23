@@ -1,12 +1,12 @@
-import {  useState } from "react";
+import { memo, useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import type { CheckOutProps } from "./typing";
 import { getCart, getCartKeyForUser } from "../../utils/cart";
 import { toastNotification } from "../../utils/toastNotification";
 import InputField from "../../components/InputField";
+import ScrollToTop from "../../ScrollToTop";
 
-const CheckOut = ({ totalPrice }: CheckOutProps) => {
-
+const CheckOut: FC<CheckOutProps> = ({ totalPrice }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,7 +33,10 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
     e.preventDefault();
     const userEmail = localStorage.getItem("authEmail");
     if (!userEmail) {
-      toastNotification({ message: "User Not found Login first", type: "error" });
+      toastNotification({
+        message: "User Not found Login first",
+        type: "error",
+      });
       return;
     }
     const checkoutDataKey = `checkOut_${userEmail}`;
@@ -67,39 +70,38 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
           </h2>
 
           <form className="space-y-6 p-3 " onSubmit={handleSubmit}>
+           
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
               <InputField
+              variant="primary"
                 label="Full Name"
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                   
-                  
-                />
-              
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
 
               <InputField
-                label= "Email"
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  
-          
-                />
+              variant="primary"
+                label="Email"
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
 
-              <InputField 
+              <InputField
+              variant="primary"
                 label="Phone Number"
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  maxLength={10}
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
+                type="tel"
+                id="phone"
+                name="phone"
+                maxLength={10}
+                value={formData.phone}
+                onChange={handleChange}
+              />
 
               <div>
                 <label
@@ -120,23 +122,23 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
               </div>
 
               <InputField
-                label ='City'
-                  type="text"
-                  id="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                />
+              variant="primary"
+                label="City"
+                type="text"
+                id="city"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+              />
               <InputField
-                label= 'ZIP Code'              
-                  type="text"
-                  id="zipCode"
-                  name="zipCode"
-                  value={formData.zipCode}
-                  onChange={handleChange}
-                  
-                />
-             
+              variant="primary"
+                label="ZIP Code"
+                type="text"
+                id="zipCode"
+                name="zipCode"
+                value={formData.zipCode}
+                onChange={handleChange}
+              />
             </div>
 
             <div>
@@ -153,7 +155,7 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
                 onChange={handleChange}
                 className="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000]"
               >
-                <option value="cash">Cash on Delivery</option>
+                <option value="cash" >Cash on Delivery</option>
                 <option value="card">Credit/Debit Card</option>
               </select>
             </div>
@@ -177,7 +179,6 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
             </div>
 
             <div className="border-t pt-4">
-              
               <div className="flex justify-between text-[#000000] text-lg font-medium">
                 <span className="font-bold">Total:</span>
                 <span>₹ {totalPrice}</span>
@@ -197,4 +198,4 @@ const CheckOut = ({ totalPrice }: CheckOutProps) => {
   );
 };
 
-export default CheckOut;
+export default memo(CheckOut);

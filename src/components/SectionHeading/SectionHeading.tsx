@@ -8,7 +8,7 @@ const SectionHeading: React.FC<SectionHeadProps> = ({ variant = 'primary', size 
 
   const variantStyles = {
     primary: 'text-[#0f0f0f] font-medium ',
-    secondary: 'text-[#474747]  pt-1 font-medium',
+    secondary: 'text-[#474747]   font-medium',
   };
 
   const sizeStyles = {

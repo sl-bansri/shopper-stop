@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { LoginForm } from "./typing";
 import {  toastNotification } from "../../../utils/toastNotification";
 import { useAuth } from "../../../Context/AuthContext/AuthContext";
+import InputField from "../../InputField";
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginForm>({
@@ -32,8 +33,6 @@ const Login = () => {
       setSuccess("");
       return;
     }
-
-   
     toastNotification({
       message: "You are logged in successfully! Welcome to shopper Stop",
       type: "success",
@@ -62,45 +61,31 @@ const Login = () => {
             )}
 
             <form onSubmit={handleLogin} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-[black] font-medium mb-2"
-                >
-                  Email
-                </label>
-                <input
+              <InputField
+              variant="secondary"
+                label="Email" 
+                
                   type="email"
                   id="email"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full p-3  bg-transparent border-b-2 border-b-[#f060b9] text-[black] focus:outline-none"
                   placeholder="Enter your email"
-                  required
                 />
-              </div>
 
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-[black] font-medium mb-2"
-                >
-                  Password
-                </label>
-                <input
+              <InputField
+              variant="secondary"
+                label="Password"
                   type="password"
                   id="password"
                   value={formData.password}
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
                   }
-                  className="w-full p-3  bg-transparent border-b-2 border-b-[#f060b9] text-[black] focus:outline-none"
                   placeholder="Enter Password"
-                  required
+                 
                 />
-              </div>
               {error && (
                 <p className="text-[#dd2f38] mb-4 text-xl text-center">
                   {error}

@@ -1,8 +1,9 @@
 import { Navigate } from "react-router-dom";
 import type { AuthRouteProps } from "./typing";
 import { useAuth } from "../../Context/AuthContext/AuthContext";
+import type { FC } from "react";
 
-const AuthRoute= ({ children, authType }:AuthRouteProps) => {
+const AuthRoute:FC<AuthRouteProps> = ({ children, authType }) => {
   const { isLoggedIn } = useAuth();
 
   if (authType === "private" && !isLoggedIn) {

@@ -139,13 +139,10 @@ function Header() {
 
             <div className="mx-3 md:mx-0 my-3 flex gap-3 items-center justify-between text-center  lg:gap-6 md:gap-7">
               <div>
-                {/* <div className="relative flex  flex-col items-center justify-center overflow-hidden ">
-                <p className="absolute animate-ping  left-[-60px] top-[0px] rounded text-[#fa2121] w-full  font-bold text-[8px]">new</p> */}
                 <img
                   src="/src/assets/Images/fashion_1f40553a5f_111.gif"
                   className=" cursor-pointer md:min-w-[150px] sm:min-w-[80px]"
                 />
-                {/* </div> */}
               </div>
               <div className="flex cursor-pointer items-center gap-[7px]">
                 {!isLoggedIn ? (
@@ -171,9 +168,9 @@ function Header() {
                     <img
                       src="/src/assets/Images/heart_black-svg.svg"
                       alt="save"
-                      className="w-[20px] max-w-[20px] cursor-pointer sm:max-w-[40px] "
+                      className="w-[20px] max-w-[20px]  cursor-pointer sm:max-w-[40px] "
                     />
-                    <div className="absolute right-[-7px] top-[-2px] flex size-3 items-center justify-center rounded-full bg-[orange] text-[10px] text-black  select-none md:select-text">
+                    <div className="absolute right-[-7px] top-[-2px] flex size-3 items-center justify-center rounded-full bg-[#f3ac29] text-[9px] text-black  select-none md:select-text">
                       {getWishLength()}
                     </div>
                   </Link>
@@ -185,7 +182,7 @@ function Header() {
                       alt="cart"
                       className="w-[20px] max-w-[20px] cursor-pointer sm:max-w-[40px]  "
                     />
-                    <div className="absolute right-[-7px] top-[-2px] flex size-3 items-center justify-center rounded-full bg-[orange] text-[10px] text-black  select-none md:select-text  ">
+                    <div className="absolute right-[-7px] top-[-2px] flex size-3 items-center justify-center rounded-full bg-[#f3ac29] text-[10px] text-black  select-none md:select-text  ">
                       {getCartLength()}
                     </div>
                   </Link>

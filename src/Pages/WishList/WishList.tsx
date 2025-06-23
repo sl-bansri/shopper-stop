@@ -16,12 +16,10 @@ import ItemHeading from "../../components/ItemHeading";
 const WishList = () => {
   const [wishItems, setWishItems] = useState<WishItem[]>(getWishlist());
   const { setCartLength, setWishLength } = useCart();
-
   const [showSizeItemId, setShowSizeItemId] = useState<string | null>(null);
   const [selectedSizes, setSelectedSizes] = useState<{
     [productId: string]: string;
   }>({});
-  // console.log('selectedSizes',selectedSizes);
   useEffect(() => {
     setWishItems(getWishlist());
   }, []);
@@ -118,8 +116,8 @@ const WishList = () => {
                                 }
                                 className={`mb-4 ${
                                   selectedSizes[item.id] === size.size
-                                    ? " border-black font-semibold"
-                                    : "border-gray-400"
+                                    ? " border border-black"
+                                    : ""
                                 }`}
                               >
                                 {size.size}
@@ -138,8 +136,8 @@ const WishList = () => {
                       <Button 
                         variant="secondary"
                         size="small"
+                        className="mt-2"
                         onClick={() => handleSizeClick(item.id)}
-                        // className="mt-3 bg-black text-white px-4 py-2 rounded text-sm"
                       >
                         Add to Cart
                       </Button>
@@ -149,10 +147,11 @@ const WishList = () => {
                   <Button
                   variant="cross" size="large"  
                     onClick={() => handleRemove(item.id)}
-                    // className=" text-2xl  "
                   >
                     x
                   </Button>
+
+
                 </div>
               ))}
             </div>

@@ -1,9 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 import type { CartContextProps } from "./typing";
-import { getCartLength } from "../utils/cart";
 import { getWishLength } from "../utils/wish";
-
-
+import { getCartLength } from "../utils/cart";
 
 const CartContext = createContext<CartContextProps >({
   cartLength: 0,

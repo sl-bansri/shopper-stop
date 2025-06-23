@@ -13,6 +13,7 @@ import { useAuth } from "../../Context/AuthContext/AuthContext";
 import ItemHeading from "../ItemHeading";
 import ImagePoster from "../ImagePoster";
 import GridItems from "../GridItems";
+import SectionHeading from "../SectionHeading";
 
 
 const categoryData: CategoryData = data;
@@ -44,7 +45,6 @@ const SubCategory = () => {
 
   const handleRemoveItem = (id: string) => {
     removeFromWishlist(id);
-    // console.log(getWishlist(), "item==>>>removeddd");
     setWishListItems(getWishlist());
   };
   return (
@@ -57,9 +57,9 @@ const SubCategory = () => {
             
           />
         </div>
-        <h2 className="text-2xl font-bold text-center my-4">
+        <SectionHeading variant="primary" size="large" className="text-center mt-4">
           {subCategory.name}
-        </h2>
+        </SectionHeading>
 
         <div className="w-full flex justify-center md:justify-start">
           <GridItems variant="primary">

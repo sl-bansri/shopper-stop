@@ -1,6 +1,5 @@
 import type { Product } from "../components/Product/typing";
 import { toastNotification } from "./toastNotification";
-import { useAuth } from "../Context/AuthContext/AuthContext";
 
 export type CartItem = Product & {
   cartId: number;
@@ -39,7 +38,6 @@ export const addToCart = (product: Product, selectedSize: string) => {
     
   
   const cart: CartItem[] = getCart();
-  console.log("cartKey",cart)
   const sizeData = product.sizes?.find((s) => s.size === selectedSize);
   const sizePrice = sizeData ? sizeData.price : product.Price;
 
@@ -58,7 +56,7 @@ export const addToCart = (product: Product, selectedSize: string) => {
       return;
     }
 
-    console.log(product, "product");
+
     toastNotification({
       message: `${product.name} is added to bag!`,
       type: "success"

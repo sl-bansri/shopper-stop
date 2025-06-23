@@ -14,6 +14,7 @@ import { addToCart, getCartLength } from "../../utils/cart";
 import { toastNotification } from "../../utils/toastNotification";
 import { useAuth } from "../../Context/AuthContext/AuthContext";
 import Button from "../Button";
+import SectionHeading from "../SectionHeading";
 
 const categoryData: CategoryData = data;
 
@@ -118,27 +119,25 @@ const ProductDetail = () => {
             <img
               src={product.image}
               alt={product.name}
-              className=" w-full h-[26rem] bg-cover"
+              className="   w-fit bg-cover sm:h-[26rem] "
             />
             <div className="flex flex-col gap-2  sm:flex-row ">
               <Button variant="secondary" size="medium"
-                // className="bg-[#000000] cursor-pointer p-2 rounded-md text-[#ffffff] w-full sm:w-1/2"
                 onClick={handleAddToCart}
               >
                 Add to Bag
               </Button>
               <Button variant="outline" size="medium"
                 onClick={handleWishClick}
-                // className="border-2 cursor-pointer border-black rounded-md w-full sm:w-1/2"
               >
                 Add to Wishlist
               </Button>
             </div>
           </div>
 
-          <div>
-            <h2 className="text-2xl font-bold my-2">{product.name}</h2>
-            <div className="text-lg   flex  flex-col ">
+          <div className="flex flex-col gap-2">
+            <SectionHeading variant="primary" size="large">{product.name}</SectionHeading>
+            <div className="text-lg   flex  flex-col  ">
               <div className="text-lg  gap-2 flex items-end">
                 <div className="text-[#858383] text-xl  font-medium">MRP</div>
                 <div>₹{product.Price}</div>
@@ -147,7 +146,7 @@ const ProductDetail = () => {
                 inclusive of all taxes
               </div>
             </div>
-            <p className="mb-4 mt-4 ">{product.Description}</p>
+            <SectionHeading variant="secondary" size="small">{product.Description}</SectionHeading>
             <div>
               <div className="text-[#9e9c9c] hidden">Select your size</div>
               <div className="flex gap-4">

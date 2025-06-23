@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import { Link} from "react-router-dom";
+import ImagePoster from "../../ImagePoster";
 
 const Slider = () => {
 
@@ -24,10 +25,10 @@ const Slider = () => {
           <SwiperSlide>
             <div className="h-full w-full ">
               <Link to={"/category/women"}>
-              <img
+              <ImagePoster
+              variant="primary"
                 src="/src/assets/Images/indianwear_main_banner_web_b358d02cec.avif"
                 alt="..."
-                className="bg-cover h-full w-full"
               />
               </Link>
             </div>
@@ -35,10 +36,10 @@ const Slider = () => {
           <SwiperSlide>
             <div className="h-full w-full ">
             <Link to={"/category/men"}>
-              <img
+              <ImagePoster
+              variant="primary"
                 src="/src/assets/Images/menswear_main_banner_web_cedd26d476.avif"
                 alt="..."
-                className="bg-cover h-full w-full "
               />
               </Link>
             </div>
@@ -46,9 +47,9 @@ const Slider = () => {
           <SwiperSlide>
             <div className=" h-full">
               <Link to={"/category"}>
-              <img
+              <ImagePoster
+              variant="primary"
                 src="/src/assets/Images/SS_25_pvt_brands_main_kv_web02_a5775f6506.avif"
-                className="bg-cover h-full w-full"
                 alt="..."
               />
               </Link>

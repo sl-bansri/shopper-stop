@@ -34,8 +34,6 @@ export const addToWishlist = (product: Product) => {
   }
 
   const wish: WishItem[] = getWishlist();
-  // const sizeData = product.sizes?.find((s) => s.size === selectedSize);
-  // const sizePrice = sizeData ? sizeData.price : product.Price;
 
   const existingItemIndex = wish.findIndex((item) => item.id === product.id);
 
@@ -57,6 +55,5 @@ export const removeFromWishlist = (id: string) => {
   if (!wishKey) return [];
 
   const wishlist = getWishlist().filter((item) => !(item.id === id));
-  // console.log("wishlist", wishlist);
   localStorage.setItem(wishKey, JSON.stringify(wishlist));
 };
