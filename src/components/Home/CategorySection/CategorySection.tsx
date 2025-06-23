@@ -6,7 +6,7 @@ const CategorySection = () => {
   return (
     <section className="mt-4 p-2 mx-auto bg-[#ebeeee8a]">
       <div className=" mx-auto  sm:px-6 lg:px-8 flex flex-col justify-center">
-        <GridItems variant="secondary" >
+        <GridItems variant="mainsection" >
           {services.map((service, id) => (
             <div key={id} className="bg-gray-100   flex  text-center justify-center">
               <div>

@@ -6,10 +6,10 @@ const GridItems: React.FC<GridItemsProps> = ({ variant = 'primary',className, ch
  
 
   const variantStyles = {
-    primary: "mx-auto grid grid-cols-1 w-fit md:grid-cols-3 lg:grid-cols-3 gap-6  sm:mx-0 ",
-    secondary: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6',
-    ordinary: 'mx-auto grid grid-cols-1 w-fit md:grid-cols-2 lg:grid-cols-2 gap-4  '
-
+    primary: "mx-auto grid grid-cols-1 w-fit md:grid-cols-3 lg:grid-cols-3 gap-6  sm:mx-0  ",
+    secondary: 'text-gray-mx-auto grid grid-cols-1 w-fit md:grid-cols-2 lg:grid-cols-3 gap-6  sm:mx-0 ',
+    ordinary: 'mx-auto grid grid-cols-1 w-fit md:grid-cols-2 lg:grid-cols-2 gap-4  ',
+    mainsection:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
   };
 
 

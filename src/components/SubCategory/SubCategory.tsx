@@ -54,15 +54,15 @@ const SubCategory = () => {
           <ImagePoster
             src={subCategory.productbanner}
             alt={subCategory.name}
-            
+            variant="primary"
           />
         </div>
         <SectionHeading variant="primary" size="large" className="text-center mt-4">
           {subCategory.name}
         </SectionHeading>
 
-        <div className="w-full flex justify-center md:justify-start">
-          <GridItems variant="primary">
+        <div className="w-full flex justify-center md:justify-start ">
+          <GridItems variant="primary" className="md:gap-32  lg:gap-6">
             {subCategory.product.map((prod) => (
               <div className=" w-full " key={prod.id}>
                 <div className=" relative bg-[#ebe2e2] top-10 sm:top-0 left-4 sm:left-10 z-30 flex size-[33.23px] cursor-pointer items-center justify-center rounded-[74.77px]  p-[2.23px] md:top-10 md:p-[6px] md:left-4 hover:bg-slate-300">
