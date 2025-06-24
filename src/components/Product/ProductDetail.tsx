@@ -106,11 +106,11 @@ const ProductDetail = () => {
         <div className="mx-w-2xl  mx-5 p-4 flex flex-col gap-8 sm:flex-row ">
           <div className="flex flex-col gap-4">
             {isInWishlist && (
-              <button onClick={onclickHeart}>
+              <button onClick={onclickHeart} className="absolute">
                 {isCheck ? (
-                  <p></p>
+                  <></>
                 ) : (
-                  <p className="relative text-xl justify-right left-1 w-full top-[45px] flex  gap-1 mt-1">
+                  <p className="relative text-2xl md:text-xl justify-right left-1 w-full flex  gap-1 mt-1">
                     ♥️
                   </p>
                 )}
@@ -119,7 +119,7 @@ const ProductDetail = () => {
             <img
               src={product.image}
               alt={product.name}
-              className="   w-fit bg-cover sm:h-[26rem] "
+              className="  w-fit bg-cover sm:h-[28rem] "
             />
             <div className="flex flex-col gap-2  sm:flex-row ">
               <Button variant="secondary" size="medium"
@@ -170,7 +170,7 @@ const ProductDetail = () => {
               </div>
               <div className=" border-b bg-[#f1ebeb70] mt-3 px-4 py-3 md:px-5 md:py-4 lg:px-6 lg:py-5 max-w-96 ">
                 <h3 className="flex ">
-                  <button className=" text-xs font-bold leading-[14.4px] text-neutral-900 md:text-sm md:leading-[19.2px] md:tracking-large lg:text-base">
+                  <button className=" text-xl  font-bold leading-[14.4px] text-neutral-900 md:text-sm md:leading-[19.2px] md:tracking-large lg:text-base">
                     Product Details
                   </button>
                 </h3>

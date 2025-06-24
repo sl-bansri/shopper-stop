@@ -15,11 +15,10 @@ import ImagePoster from "../ImagePoster";
 import GridItems from "../GridItems";
 import SectionHeading from "../SectionHeading";
 
-
 const categoryData: CategoryData = data;
 const SubCategory = () => {
   const { categoryName, subCategoryName } = useParams();
-  const {isLoggedIn} = useAuth()
+  const { isLoggedIn } = useAuth();
   const [wishListItem, setWishListItems] = useState<WishItem[]>([]);
   const navigate = useNavigate();
 
@@ -57,7 +56,11 @@ const SubCategory = () => {
             variant="primary"
           />
         </div>
-        <SectionHeading variant="primary" size="large" className="text-center mt-4">
+        <SectionHeading
+          variant="primary"
+          size="large"
+          className="text-center mt-4"
+        >
           {subCategory.name}
         </SectionHeading>
 
@@ -75,8 +78,8 @@ const SubCategory = () => {
                     <img
                       src="/src/assets/Images/heart_black.png"
                       alt="save"
-                      className="w-6  cursor-pointer relative"
-                      onClick={() => handleWishList(prod) }
+                      className=" w-6  cursor-pointer relative"
+                      onClick={() => handleWishList(prod)}
                     />
                   )}
                 </div>
@@ -92,10 +95,12 @@ const SubCategory = () => {
                     <img
                       src={prod.image}
                       alt={prod.name}
-                      className="w-full object-cover "
+                      className="w-full object-cover hover:scale-110"
                     />
                     <div className="p-3">
-                      <ItemHeading variant="primary" size="medium">{prod.name}</ItemHeading>
+                      <ItemHeading variant="primary" size="medium">
+                        {prod.name}
+                      </ItemHeading>
                       <ItemHeading variant="secondary" className="text-xs">
                         {prod.Description}
                       </ItemHeading>

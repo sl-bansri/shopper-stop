@@ -16,108 +16,121 @@ import SignUp from "./components/Auth/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { useAuth } from "./Context/AuthContext/AuthContext";
-
+import { useLoader } from "./Context/LoaderContext/LoaderContext";
+import PageLoader from "./components/Loader";
 
 const App = () => {
   const { setIsLoggedIn } = useAuth();
+  const { setIsLoading } = useLoader();
+  
   useEffect(() => {
     const email = localStorage.getItem("authEmail");
     setIsLoggedIn(!!email);
   }, []);
 
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <Router>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        theme="dark"
-      />
-      <ScrollToTop />
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route
-            path="/"
-            element={
-              <AuthRoute authType="public">
-                <HomePage />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="/category"
-            element={
-              <AuthRoute authType="public">
-                <MainCategory />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="/category/:categoryName"
-            element={
-              <AuthRoute authType="public">
-                <Category />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="/category/:categoryName/:subCategoryName"
-            element={
-              <AuthRoute authType="public">
-                <SubCategory />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="/category/:categoryName/:subCategoryName/:productId"
-            element={
-              <>
+    <>
+      <Router>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          theme="dark"
+        />
+
+        <ScrollToTop />
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route
+              path="/"
+              element={
                 <AuthRoute authType="public">
-                  <ProductDetail />
+                  <HomePage />
                 </AuthRoute>
-              </>
-            }
-          />
+              }
+            />
+            <Route
+              path="/category"
+              element={
+                <AuthRoute authType="public">
+                  <MainCategory />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/category/:categoryName"
+              element={
+                <AuthRoute authType="public">
+                  <Category />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/category/:categoryName/:subCategoryName"
+              element={
+                <AuthRoute authType="public">
+                  <SubCategory />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/category/:categoryName/:subCategoryName/:productId"
+              element={
+                <>
+                  <AuthRoute authType="public">
+                    <ProductDetail />
+                  </AuthRoute>
+                </>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <AuthRoute authType="private">
+                  <CartPage />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <>
+                  <AuthRoute authType="private">
+                    <WishList />
+                  </AuthRoute>
+                </>
+              }
+            />
+          </Route>
+
           <Route
-            path="/cart"
+            path="/login"
             element={
-              <AuthRoute authType="private">
-                <CartPage />
+              <AuthRoute authType="public">
+                <Login />
               </AuthRoute>
             }
           />
           <Route
-            path="/wishlist"
+            path="/signup"
             element={
-              <>
-                <AuthRoute authType="private">
-                  <WishList />
-                </AuthRoute>
-                {/* <ToastContainer /> */}
-              </>
+              <AuthRoute authType="public">
+                <SignUp />
+              </AuthRoute>
             }
           />
-
-        </Route>
-
-        <Route
-          path="/login"
-          element={
-            <AuthRoute authType="public">
-              <Login />
-            </AuthRoute>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <AuthRoute authType="public">
-              <SignUp />
-            </AuthRoute>
-          }
-        />
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </>
   );
 };
 

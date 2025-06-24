@@ -10,13 +10,11 @@ const ImagePoster: React.FC<ImagePosterProps> = ({
   ...rest
 }) => {
   const variantStyles = {
-
-    primary: "bg-cover  h-[250px] w-full sm:h-[400px]",
+    primary: "bg-cover   h-[250px] w-full sm:h-[400px]",
     secondary: "bg-cover  h-[250px] w-full sm:h-[300px]",
-    
   };
 
-  const combinedClasses = clsx(variantStyles[variant], className );
+  const combinedClasses = clsx(variantStyles[variant], className);
 
   return <img src={src} alt={alt} className={combinedClasses} {...rest}></img>;
 };

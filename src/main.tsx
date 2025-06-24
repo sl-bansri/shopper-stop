@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App.tsx";
 import { CartProvider } from "./Context/CartContext.tsx";
 import { AuthProvider } from "./Context/AuthContext/AuthContext.tsx";
+import { LoaderProvider } from "./Context/LoaderContext/LoaderContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
-      <CartProvider>
-        <App />
-      </CartProvider>
+      <LoaderProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </LoaderProvider>
     </AuthProvider>
   </StrictMode>
 );
